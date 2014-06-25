@@ -11,9 +11,9 @@ function showPicture() {
 	console.log("received something from storage");
 	var file = this.result;
 	console.log("File found: " + file.name);
-	if (file != null) { // consider possible equality situations here
-	    var image = "<img height='100' width='100'>";
-	    image.src = window.URL.createObjectURL(file);
+	if (file !== null) { // any reason not to compare with !== ?
+	    var imgSrc = window.URL.createObjectURL(file);
+	    var image = "<img height='100' width='100' + src='" + imgSrc + "'>";
 	    picture.innerHTML = image;
 	}
     }
