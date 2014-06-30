@@ -2,8 +2,8 @@
 <head>
   <meta charset="utf-8">
 <script src="static/angular.min.js"></script>
+<script src="gallery/gallery-service.js"></script>
 <script src="gallery/gallery-controllers.js"></script>
-<!-- <script src="gallery/gallery-service.js"></script> -->
 <script src="app.js"></script>
 <head> 
 <body>
@@ -11,8 +11,9 @@
 <p>Camera Images</p>
 </header>
 <div id="picture" ng-controller="listController">
-<div ng-repeat="photo in photos">
+  <div ng-repeat="photo in photos">
   {{photo.name}}
+  </div>
 </div>
 </body>
 </html>

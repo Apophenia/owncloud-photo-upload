@@ -1,3 +1,1 @@
-var uploadApp = angular.module("uploadApp", ["galleryControllers"]);
- /*   'galleryControllers',
-    'galleryServices']); */
+var uploadApp = angular.module("uploadApp", ["galleryControllers", "galleryServices"]);

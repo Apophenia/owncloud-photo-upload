@@ -2,12 +2,11 @@ var galleryControllers = angular.module("galleryControllers", []);
 
 galleryControllers.controller('listController', 
 			      ["$scope", 
-			       function($scope) {
-				   $scope.photos = [
-				       // mock objects while I update
-				       // the service
-				       { name: "photo1.jpg" },
-				       { name: "photo2.jpg" }
-				   ];
-			       }]);
-			      
+			       'Gallery',
+			       function($scope, Gallery) {
+				   // ng-repeat won't iterate through 
+				   // file objects - working on this.
+				   $scope.photos = Gallery.getPhotos();
+			       }
+			      ]);
+
