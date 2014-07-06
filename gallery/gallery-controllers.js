@@ -6,7 +6,7 @@ galleryControllers.controller('listController',
 			       function($scope, Gallery) {
 				   var promise = Gallery.getPhotos();
 				   promise.then(function(result) {
-				       console.log(result);
+				       $scope.photos = result;
 				   }, function(reason) {
 				       console.log('Failed: ' + reason);
 				   }, function(update) {

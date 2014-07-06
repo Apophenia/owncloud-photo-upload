@@ -10,29 +10,22 @@ galleryServices.factory('Gallery', function($q) {
 	var photos = [];	
 	var files = navigator.getDeviceStorage('pictures');
 	var cursor = files.enumerate();
-	
-	cursor.onsuccess = function() {
-	    var file = this.result;
-	    console.log("File found: " + this.result.name);
 
-	    if (this.done && photos.length > 0) {
+	cursor.onsuccess = function() {
+	    if (this.done) {
 		deferred.resolve(photos);
-		return deferred.promise;
-	    }
-	    else if (this.done) {
-		console.log("done");
-		deferred.reject("No photos found.");
-		return deferred.promise;
 	    }
 	    else {
+		photos.push(this.result);
 		this.continue();
 	    }
 	};
 
 	cursor.onerror = function() {
 	    deferred.reject("Error browsing the file system.");
-	    return deferred.promise;
 	};
+
+	return deferred.promise;
     };
     return service;
 });
