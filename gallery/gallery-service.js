@@ -1,12 +1,10 @@
 var galleryServices = angular.module('galleryServices', []);
 
 galleryServices.factory('Gallery', function($q) {
-    var service = {};	
+    var factory = {};	
 
-    // This is example is copied from the angular docs
-    service.getPhotos = function() {
-	var deferred = $q.defer();
-	
+    factory.getDeviceMedia = function() {
+	var deferred = $q.defer();	
 	var photos = [];	
 	var files = navigator.getDeviceStorage('pictures');
 	var cursor = files.enumerate();
@@ -27,5 +25,6 @@ galleryServices.factory('Gallery', function($q) {
 
 	return deferred.promise;
     };
-    return service;
+    return factory;
 });
+
