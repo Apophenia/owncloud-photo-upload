@@ -11,6 +11,9 @@ galleryServices.factory('Gallery', function($q) {
 
 	cursor.onsuccess = function() {
 	    if (this.done) {
+		photos.forEach(function(photo) {
+		    photo.src = window.URL.createObjectURL(photo);
+		});
 		deferred.resolve(photos);
 	    }
 	    else {
