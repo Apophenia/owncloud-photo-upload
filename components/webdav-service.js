@@ -9,7 +9,7 @@ webdavServices.factory('webDAV', function($q) {
     factory.genPropRequestBody = function(properties) {
 	var body;
 	return body;
-    }
+    };
 
     factory.propfind = function(url, properties) {
 	var deferred = $q.deferred();
@@ -25,7 +25,6 @@ webdavServices.factory('webDAV', function($q) {
 	    var body = genPropRequestBody(properties);
 	    xhr.send(body);
 	}
-	
+    };
     return factory;
 });
-

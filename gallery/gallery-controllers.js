@@ -7,14 +7,12 @@ galleryControllers.controller('listController',
 			           var promise = Gallery.getDeviceMedia();
                                    promise.then(function(result) {
                                        $scope.photos = result;
-                                   }, function(reason) {
+			           }, function(reason) {
                                        console.log('Failed: ' + reason);
                                    }, function(update) {
                                        console.log('Got notification: ' + update);
 	                           });
 			       }]);
-
-
 
 
 
