@@ -11,10 +11,6 @@ webdavServices.factory('webDAV', function($q) {
 	return body;
     };
 
-    factory.greet = function() {
-	return "Hello world";
-    };
-
     factory.propfind = function(url, properties) {
 	var deferred = $q.deferred();
 	var credentials = this.genAuth();
@@ -30,5 +26,8 @@ webdavServices.factory('webDAV', function($q) {
 	    xhr.send(body);
 	}
     };
+
+    factory.hello = "Hello world";
+
     return factory;
 });

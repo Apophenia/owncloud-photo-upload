@@ -1,4 +1,4 @@
-var uploadApp = angular.module("uploadApp", ["galleryControllers", "galleryServices"])
+var uploadApp = angular.module("uploadApp", ["galleryControllers", "galleryServices", "webdavServices"])
     .config(['$compileProvider',
 	     function($compileProvider) {
 		 $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|app):/);

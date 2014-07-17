@@ -1,15 +1,17 @@
 describe("webdavServices", function() {
-    var scope;
+    beforeEach(angular.mock.module("uploadApp"));
     
-    beforeEach(angular.mock.module("Application"));
-    beforeEach(angular.mock.inject(function($rootScope, $controller) {
-	scope = $rootScope.$new();
-	$controller("webdavServices", {$scope: scope});
-    }));
+    var webDAV, httpBackend;
+    beforeEach(function() {
+	inject(function ($injector) {
+	    httpBackend = $injector.get('$httpBackend');
+	    webDAV = $injector.get('webDAV');
+	});
+    });
     
-    describe("innerFunc", function() {
-	it("should have variable text = 'Hello world'", function() {
-	    expect(scope.text).toBe("Hello world");
+    describe('greet', function () {
+	it("should return 'Hello world'", function() {
+	    expect(webDAV.greet()).toEqual("Hello world");
 	});
     });
 });
