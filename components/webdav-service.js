@@ -6,13 +6,16 @@ webdavServices.factory('webDAV', function($q) {
     factory.genAuth = function() {
     };
 
-    factory.genPropRequestBody = function(properties) {
-	var body;
-	return body;
-    };
+    var serializer = new XMLSerializer();
 
-    factory.greet = function() {
-	return "Hello world";
+    // returns an XML body including the given properties
+    factory.genPropRequestBody = function(properties) {
+	var propBody = document.implementation.createDocument("D:=DAV:", "propfind");
+	for (var i = 0; i < properties.length; ++i) {
+	    propBody.documentElement.appendChild(propBody.createElementNS('D:', properties[i]));
+	}
+	console.log(serializer.serializeToString(propBody));
+	return propBody;
     };
 
     factory.propfind = function(url, properties) {
