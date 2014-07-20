@@ -10,12 +10,17 @@ webdavServices.factory('webDAV', function($q) {
 
     // returns an XML body including the given properties
     factory.genPropRequestBody = function(properties) {
-	var propBody = document.implementation.createDocument("D:=DAV:", "propfind");
+	var propBody = document.implementation.createDocument("DAV:", "propfind");
+	var prop = propBody.createElementNS("DAV:", "prop");
 	for (var i = 0; i < properties.length; ++i) {
-	    propBody.documentElement.appendChild(propBody.createElementNS('D:', properties[i]));
+	    prop.appendChild(propBody.createElementNS("DAV:", properties[i]));
 	}
-	console.log(serializer.serializeToString(propBody));
-	return propBody;
+	propBody.documentElement.appendChild(prop);
+	return(serializer.serializeToString(propBody));
+    };
+
+    factory.meow = function() {
+	return "cats cats kittens";
     };
 
     factory.propfind = function(url, properties) {
