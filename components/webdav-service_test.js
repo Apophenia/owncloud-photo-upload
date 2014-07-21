@@ -9,8 +9,17 @@ describe("webdavServices", function() {
     });
     
     describe('genPropRequestBody', function () {
-	it("should return a propfind XML object with 'creationdate' and 'author' as child objects of 'prop.'", function() {
+	it("should return a propfind XML object with no child properties appended to 'prop' element given an empty array", function() {
+	    expect(webDAV.genPropRequestBody([])).toEqual('<propfind xmlns="DAV:"><prop/></propfind>');
+	});
+	
+	it("should return a propfind XML object with two child properties in array appended to 'prop' element", function() {
 	    expect(webDAV.genPropRequestBody(['creationdate','author'])).toEqual('<propfind xmlns="DAV:"><prop><creationdate/><author/></prop></propfind>');
 	});
+
+	it("should return a propfind XML object with five child properties in array appended to 'prop' element", function() {
+	    expect(webDAV.genPropRequestBody(['creationdate','author','getcontenttype','getcontentlength','getlastmodified'])).toEqual('<propfind xmlns="DAV:"><prop><creationdate/><author/><getcontenttype/><getcontentlength/><getlastmodified/></prop></propfind>');
+	}); 
     });
+
 });
