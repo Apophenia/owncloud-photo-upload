@@ -2,11 +2,12 @@ var webdavServices = angular.module('webdavServices', []);
 
 webdavServices.factory('webDAV', function($q) {
     var factory = {};
+    var serializer = new XMLSerializer();
 
     factory.genAuth = function() {
+	// temporarily return auth for test:test until auth built
+	return "Basic dGVzdDp0ZXN0";
     };
-
-    var serializer = new XMLSerializer();
 
     // returns an XML body including the given properties
     factory.genPropRequestBody = function(properties) {
@@ -21,11 +22,22 @@ webdavServices.factory('webDAV', function($q) {
 
     factory.propfind = function(url, properties) {
 	var deferred = $q.deferred();
-	var credentials = this.genAuth();
 	var xhr = new XMLHttpRequest({mozSystem: true});
 	xhr.open("PROPFIND", url, true);
-	xhr.setRequestHeader("Auth", credentials);
+	xhr.setRequestHeader("Auth", this.genAuth());
 	xhr.setRequestHeader("Content-type", "application/xml; charset='utf-8'");
+	xhr.onload = function (e) {
+	    if (xhr.readyState === 4) {
+		if (xhr.status === 200) {
+		    deferred.resolve(xhr.responseText);
+		} else {
+		    deferred.reject(xhr.statusText);
+		}
+	    }
+	};
+	xhr.onerror = function (e) {
+	    deferred.reject(xhr.statusText);
+	};
 	if (!properties) {
 	    xhr.send();
 	    }
@@ -33,13 +45,14 @@ webdavServices.factory('webDAV', function($q) {
 	    var body = genPropRequestBody(properties);
 	    xhr.send(body);
 	}
+	return deferred.promise;
     };
 
     factory.get = function(url) {
 	var deferred = $q.defer();
 	var xhr = new XMLHttpRequest({mozSystem: true});
 	xhr.open("GET", url, true);
-	xhr.setRequestHeader("Authorization","Basic dGVzdDp0ZXN0");
+	xhr.setRequestHeader("Authorization", factory.genAuth());
 	xhr.onload = function (e) {
 	    if (xhr.readyState === 4) {
 		if (xhr.status === 200) {
