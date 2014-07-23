@@ -1,19 +1,20 @@
 <html lang="en" ng-app="uploadApp">
-<head>
-  <meta charset="utf-8">
-<script src="static/angular.js"></script>
-<script src="gallery/gallery-service.js"></script>
-<script src="gallery/gallery-controllers.js"></script>
-<script src="app.js"></script>
-<head> 
-<body>
-<header>
-<p>Camera Images</p>
-</header>
-<div id="picture" ng-controller="listController">
-  <div ng-repeat="photo in photos">
-  <img src="{{photo.src}}" width=92 height=92>
-  </div>
-</div>
-</body>
+  <head>
+    <meta charset="utf-8">
+    <script src="static/angular.js"></script>
+    <script src="gallery/gallery-service.js"></script>
+    <script src="gallery/gallery-controllers.js"></script>
+    <script src="components/webdav-service.js"></script>
+    <script src="app.js"></script>
+    <head> 
+      <body>
+	<header>
+	  <p>Camera Images</p>
+	</header>
+	<div id="picture" ng-controller="listController">
+	  <div ng-repeat="photo in photos">
+	    <img src="{{photo.src}}" width=92 height=92>
+	  </div>
+	</div>
+      </body>
 </html>

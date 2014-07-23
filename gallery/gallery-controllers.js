@@ -1,9 +1,10 @@
-var galleryControllers = angular.module("galleryControllers", ['galleryServices']);
+var galleryControllers = angular.module("galleryControllers", ['galleryServices','webdavServices']);
 
-galleryControllers.controller('listController', 
+galleryControllers.controller('listController',
 			      ["$scope", 
 			       'Gallery',
-			       function($scope, Gallery) {
+			       'webDAV',
+			       function($scope, Gallery, webDAV) {
 			           var promise = Gallery.getDeviceMedia();
                                    promise.then(function(result) {
                                        $scope.photos = result;
@@ -13,8 +14,3 @@ galleryControllers.controller('listController',
                                        console.log('Got notification: ' + update);
 	                           });
 			       }]);
-
-
-
-
-

@@ -1,26 +1,27 @@
 {
-    "name": "ownCloud Photo Backup",
-    "description": "Upload photos and videos from device to an ownCloud server",
-    "launch_path": "/index.html",
-    "icons": {
-	"128": "/images/128.png"
+  "name": "ownCloud Photo Backup",
+  "description": "Upload photos and videos from device to an ownCloud server",
+  "launch_path": "/index.html",
+  "icons": {
+    "128": "/images/128.png"
+  },
+  "type": "privileged",
+  "permissions": {
+    "desktop-notification": {
+      "description": "Needed for creating system notifications."
     },
-    "type": "privileged",
-    "permissions": {
-	"desktop-notification": {
-	    "description": "Needed for creating system notifications."
-	},
-	"device-storage:videos": {
-	    "access": "readonly",
-	    "description": "Required for video backup"
-	},
-	"device-storage:pictures": {
-	    "access": "readonly",
-	    "description": "Required for photo backup"
-	},
-	"device-storage:sdcard": {
-	    "access": "readonly",
-	    "description":"Required to back up photos from SD card"
-	}   			        
-    }
+    "device-storage:videos": {
+      "access": "readonly",
+      "description": "Required for video backup"
+    },
+    "device-storage:pictures": {
+      "access": "readonly",
+      "description": "Required for photo backup"
+    },
+    "device-storage:sdcard": {
+      "access": "readonly",
+      "description": "Required to back up photos from SD card"
+    },
+    "systemXHR": {}
+  }
 }

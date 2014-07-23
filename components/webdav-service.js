@@ -19,15 +19,11 @@ webdavServices.factory('webDAV', function($q) {
 	return(serializer.serializeToString(propBody));
     };
 
-    factory.meow = function() {
-	return "cats cats kittens";
-    };
-
     factory.propfind = function(url, properties) {
 	var deferred = $q.deferred();
 	var credentials = this.genAuth();
 	var xhr = new XMLHttpRequest({mozSystem: true});
-	xhr.open("PROPFIND", url);
+	xhr.open("PROPFIND", url, true);
 	xhr.setRequestHeader("Auth", credentials);
 	xhr.setRequestHeader("Content-type", "application/xml; charset='utf-8'");
 	if (!properties) {
@@ -37,6 +33,27 @@ webdavServices.factory('webDAV', function($q) {
 	    var body = genPropRequestBody(properties);
 	    xhr.send(body);
 	}
+    };
+
+    factory.get = function(url) {
+	var deferred = $q.defer();
+	var xhr = new XMLHttpRequest({mozSystem: true});
+	xhr.open("GET", url, true);
+	xhr.setRequestHeader("Authorization","Basic dGVzdDp0ZXN0");
+	xhr.onload = function (e) {
+	    if (xhr.readyState === 4) {
+		if (xhr.status === 200) {
+		    deferred.resolve(xhr.responseText);
+		} else {
+		    deferred.reject(xhr.statusText);
+		}
+	    }
+	};
+	xhr.onerror = function (e) {
+	    deferred.reject(xhr.statusText);
+	};
+	xhr.send(null);
+	return deferred.promise;
     };
     return factory;
 });
