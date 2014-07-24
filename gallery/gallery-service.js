@@ -28,6 +28,24 @@ galleryServices.factory('Gallery', function($q) {
 
 	return deferred.promise;
     };
+
+    // this needs a refactor! perhaps with Underscore?
+    factory.getMediaList = function(doc) {
+	var result = [];
+	var strippedArray = [];
+	var links = doc.links;
+	var imagePattern = new RegExp(".*(png|gif|jpg|jpeg|bmp)");
+	for (var i=0; i<links.length; i++) {
+	    match = links[i].getAttribute("href").match(imagePattern);
+	    // strip to filename before pushing to array
+	    if (match) { // probably unsafe
+		result.push(match[0].replace(/^.*(\\|\/|\:)/, ''));
+	    }
+	}
+	strippedArray = result.filter(function(elem, pos) {
+	    return result.indexOf(elem) == pos;
+	});
+	return strippedArray;
+    };
     return factory;
 });
-
