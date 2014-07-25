@@ -47,5 +47,11 @@ galleryServices.factory('Gallery', function($q) {
 	});
 	return strippedArray;
     };
+
+    factory.findNewElements = function (newArray, oldArray) {
+	return newArray.filter(function(x) {
+	    return (oldArray.indexOf(x) < 0);
+	    });
+    };
     return factory;
 });
