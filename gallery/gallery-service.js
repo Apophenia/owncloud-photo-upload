@@ -1,18 +1,18 @@
 var galleryServices = angular.module('galleryServices', []);
 
-galleryServices.factory('Gallery', function($q) {
+galleryServices.factory('Gallery', ['$window', '$q', function($window, $q) {
     var factory = {};	
 
     factory.getDeviceMedia = function() {
 	var deferred = $q.defer();	
 	var photos = [];	
-	var files = navigator.getDeviceStorage('pictures');
+	var files = $window.navigator.getDeviceStorage('pictures');
 	var cursor = files.enumerate();
 
 	cursor.onsuccess = function() {
 	    if (this.done) {
 		photos.forEach(function(photo) {
-		    photo.src = window.URL.createObjectURL(photo);
+		    photo.src = $window.URL.createObjectURL(photo);
 		});
 		deferred.resolve(photos);
 	    }
@@ -54,4 +54,4 @@ galleryServices.factory('Gallery', function($q) {
 	    });
     };
     return factory;
-});
+}]);
