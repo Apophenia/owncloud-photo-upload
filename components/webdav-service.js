@@ -52,7 +52,7 @@ webdavServices.factory('webDAV', function($q) {
 	    var deferred = $q.defer();
 	    var xhr = new XMLHttpRequest({mozSystem: true});
 	    xhr.open("GET", url, true);
-	    xhr.setRequestHeader("Authorization", factory.genAuth());
+	    xhr.setRequestHeader("Authorization", this.genAuth());
 	    xhr.onload = function (e) {
 		if (xhr.readyState === 4) {
 		    if (xhr.status === 200) {
