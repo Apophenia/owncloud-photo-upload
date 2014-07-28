@@ -16,6 +16,8 @@
 	<div id="picture" ng-controller="listController">
 	  <div ng-repeat="photo in photos">
 	    <img src="{{photo.src}}" width=92 height=92>
+	    {{photo.name}} :
+	    {{photo.onServer}}
 	  </div>
 	</div>
       </body>

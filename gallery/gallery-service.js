@@ -12,6 +12,7 @@ galleryServices.factory('Gallery', ['$window', '$q', function($window, $q) {
 		if (this.done) {
 		    photos.forEach(function(photo) {
 			photo.src = $window.URL.createObjectURL(photo);
+			photo.onServer = false;
 		    });
 		    deferred.resolve(photos);
 		}
@@ -28,7 +29,9 @@ galleryServices.factory('Gallery', ['$window', '$q', function($window, $q) {
 	    return deferred.promise;
 	},
 	// this needs a refactor! perhaps with Underscore?
-	getMediaList: function(doc) {
+	getMediaList: function(xml) {
+	    var parser = new DOMParser();
+	    var doc = parser.parseFromString(xml, "text/html");
 	    var result = [];
 	    var strippedArray = [];
 	    var links = doc.links;
@@ -37,7 +40,7 @@ galleryServices.factory('Gallery', ['$window', '$q', function($window, $q) {
 		match = links[i].getAttribute("href").match(imagePattern);
 		// strip to filename before pushing to array
 		if (match) { // probably unsafe
-		    result.push(match[0].replace(/^.*(\\|\/|\:)/, ''));
+		    result.push(decodeURIComponent(match[0].replace(/^.*(\\|\/|\:)/, '')));
 		}
 	    }
 	    strippedArray = result.filter(function(elem, pos) {
