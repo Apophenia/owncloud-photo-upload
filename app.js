@@ -1,5 +1,5 @@
 var uploadApp = angular.module("uploadApp",
-			       ["galleryControllers", "galleryServices",
+			       ["galleryControllers", "authServices", "galleryServices",
 				"webdavServices", "underscore"])
     .config(['$compileProvider',
 	     function($compileProvider) {

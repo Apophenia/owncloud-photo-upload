@@ -1,12 +1,8 @@
-var webdavServices = angular.module('webdavServices', []);
+var webdavServices = angular.module('webdavServices', ['authServices']);
 
-webdavServices.factory('webDAV', function($q) {
+webdavServices.factory('webDAV', ['Auth', '$q', function(Auth, 
+$q) {
     return {
-	
-	genAuth: function() {
-	    // temporarily return auth for test:test until auth built
-	    return "Basic dGVzdDp0ZXN0";
-	},
 
 	// returns an XML body including the given properties
 	genPropRequestBody: function(properties) {
@@ -52,7 +48,7 @@ webdavServices.factory('webDAV', function($q) {
 	    var deferred = $q.defer();
 	    var xhr = new XMLHttpRequest({mozSystem: true});
 	    xhr.open("GET", url, true);
-	    xhr.setRequestHeader("Authorization", this.genAuth());
+	    xhr.setRequestHeader("Authorization", Auth.getBasic());
 	    xhr.onload = function (e) {
 		if (xhr.readyState === 4) {
 		    if (xhr.status === 200) {
@@ -69,4 +65,4 @@ webdavServices.factory('webDAV', function($q) {
 	    return deferred.promise;
 	}
     };
-});
+}]);

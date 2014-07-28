@@ -4,7 +4,7 @@ var galleryControllers = angular.module("galleryControllers",
 
 galleryControllers.controller('listController',
 			      ["$scope", '$log', 'Gallery','webDAV', '_',
-	function($scope, $log, Gallery, webDAV, _) {
+	function($scope, $log, Gallery, webDAV, _, Auth) {
 	    var serverURL = ""; // must be populated for testing or development
 	    var promise = Gallery.getDeviceMedia();
 	    promise.then(function(result) {
