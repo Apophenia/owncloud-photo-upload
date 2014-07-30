@@ -12,7 +12,7 @@ describe("webdavServices", function() {
 	it("should return a propfind XML object with no child properties appended to 'prop' element given an empty array", function() {
 	    expect(webDAV.genPropRequestBody([])).toEqual('<propfind xmlns="DAV:"><prop/></propfind>');
 	});
-	
+
 	it("should return a propfind XML object with two child properties in array appended to 'prop' element", function() {
 	    expect(webDAV.genPropRequestBody(['creationdate','author'])).toEqual('<propfind xmlns="DAV:"><prop><creationdate/><author/></prop></propfind>');
 	});
