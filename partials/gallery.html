@@ -1,0 +1,11 @@
+<!-- gallery.html -->
+<header>
+  <p>Camera Images</p>
+</header>
+<div id="picture">
+  <div ng-repeat="photo in photos">
+    <img src="{{photo.src}}" width=92 height=92>
+    {{photo.name}} :
+    {{photo.onServer}}
+  </div>
+</div>
