@@ -5,7 +5,9 @@ angular.module('uploadApp')
 	    var deferred = $q.defer();	
 	    var photos = [];	
 	    var files = $window.navigator.getDeviceStorage('pictures');
-	    var cursor = files.enumerate();
+
+	    //for testing purpose, use gaia folder as a storage folder
+	    var cursor = files.enumerate('gaia');
 
 	    cursor.onsuccess = function() {
 		if (this.done) {
