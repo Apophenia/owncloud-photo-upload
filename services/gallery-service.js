@@ -1,13 +1,13 @@
 angular.module('uploadApp')
     .factory('Gallery', function($window, $q) {
-	return {	
-	    getDeviceMedia: function() {
-		var deferred = $q.defer();	
-		var photos = [];	
-		var files = $window.navigator.getDeviceStorage('pictures');
+	return {		
+	getDeviceMedia: function() {
+	    var deferred = $q.defer();	
+	    var photos = [];	
+	    var files = $window.navigator.getDeviceStorage('pictures');
 
-		//for testing purpose, use gaia folder as a storage folder
-		var cursor = files.enumerate('gaia');
+	    //for testing purpose, use gaia folder as a storage folder
+	    var cursor = files.enumerate('gaia');
 
 		cursor.onsuccess = function() {
 		    if (this.done) {
