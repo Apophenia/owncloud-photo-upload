@@ -1,0 +1,42 @@
+body { 
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+}
+html {
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    font-size: 10px;
+}
+div.thumb
+{
+    width: 99px;
+    height: 132px;
+    vertical-align: top;
+    display: inline-block;
+    margin: 0px;
+    border: 2px solid #ccc;
+}
+#media-container {
+    width: 310px;
+    background: #ccc;
+    border:1px solid #ccc;
+}
+#contents {
+}
+#upload-button {
+    height:4em;
+    width:98%;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 0 auto;
+}
+#status-bar { 
+    width:100%; 
+    height:50px; 
+    background-color:#999; 
+    padding:0px; 
+    bottom:0px;
+}
