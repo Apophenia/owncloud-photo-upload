@@ -1,18 +1,23 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" ng-app="uploadApp">
   <head>
-    <meta charset="utf-8">
-  </head>
-  <body>
-    <div ng-view></div>
+    <link href="style/headers.css" rel="stylesheet" type="text/css"/>
+    <link href="style/toolbars.css" rel="stylesheet" type="text/css"/>
+    <link href="style/buttons.css" rel="stylesheet" type="text/css"/>
+    <link href="style/tabs.css" rel="stylesheet" type="text/css"/>
+    <link href="style/style.css" rel="stylesheet" type="text/css"/>
     <script src="vendor/underscore-min.js"></script>
     <script src="vendor/angular.js"></script>
     <script src="vendor/angular-route.js"></script>
-
     <script src="app.js"></script>
     <script src="services/gallery-service.js"></script>
     <script src="services/auth-service.js"></script>
     <script src="services/webdav-service.js"></script>
     <script src="controllers/gallery-controller.js"></script>
+    <title>ownCloud Photo Upload App</title>
+    <meta charset="utf-8"></meta>
+  </head>
+  <body>
+  <div ng-view></div>
   </body>
 </html>

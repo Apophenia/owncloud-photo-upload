@@ -1,11 +1,30 @@
-<!-- gallery.html -->
-<header>
-  <p>Camera Images</p>
-</header>
-<div id="picture">
-  <div ng-repeat="photo in photos">
-    <img src="{{photo.src}}" width=92 height=92>
-    {{photo.name}} :
-    {{photo.onServer}}
+<section role="region">
+  <header>
+    <menu type="toolbar">
+      <a href="#"><span class="icon icon-options"></span></a>
+    </menu>
+    <h1>Photos</h1>
+  </header>
+</section>
+<div id="contents">
+  <ul role="tablist" class="bb-tablist" data-type="filter">
+    <li id="filter1-1" role="presentation"><a href="#filter1-1" role="tab">Action 01</a></li>
+    <li id="filter1-2" role="presentation"><a href="#filter1-2" role="tab">Action 02</a></li>
+  </ul>
+  <ul role="tablist" class="bb-tablist" data-type="filter">
+    <li id="filter2-1" role="presentation"><a href="#filter2-1" role="tab">01</a></li>
+    <li id="filter2-2" role="presentation"><a href="#filter2-2" role="tab">02</a></li>
+    <li id="filter2-3" role="presentation"><a href="#filter2-3" role="tab">03</a></li>
+    <li id="filter2-4" role="presentation"><a href="#filter2-4" role="tab">04</a></li>
+  </ul>
+  <div id="media-container">
+    <div ng-repeat="photo in photos" class="thumb">
+       <img src="{{photo.src}}" height=132 width=99>
+    </div>
+  </div>
+</div>
+<div id="status-bar">
+  <div id="upload-button">
+  <button>Upload</button>
   </div>
 </div>
