@@ -21,6 +21,8 @@
     <div ng-repeat="photo in photos" class="thumb">
        <img src="{{photo.src}}" height=132 width=99>
     </div>
+    <div ng-show="photos.length%3>0" class="thumb"></div>
+    <div ng-show="photos.length%3==1" class="thumb"></div>
   </div>
 </div>
 <div id="status-bar">
