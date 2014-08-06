@@ -10,7 +10,6 @@ angular.module("uploadApp", ["ngRoute"])
       })
       .when("/options", {
         templateUrl: "partials/options.html",
-        controller: "loginController"
       });
   }
 );
