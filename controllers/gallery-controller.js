@@ -10,13 +10,11 @@ angular.module("uploadApp")
     }, function (update) {
       $scope.info('Notification: ' + update);
     });
-
+      
     $scope.markNewImages = function () {
       webDAV
         .get(serverURL)
         .then(function (response) {
-          /* var photoNames = _.map($scope.photos,
-           function (elt) { return elt.name }); */
           var serverArray = Gallery.getMediaList(response);
           _.map($scope.photos, function (elt) {
             if (_.contains(serverArray, elt.name)) {
@@ -25,5 +23,10 @@ angular.module("uploadApp")
           });
         });
     };
-    $scope.markNewImages();
+      $scope.upload = function () {
+	  webDAV.put(Auth.getLocation() + "/helloworld.txt",
+		    "hello world")
+	      .then(console.log("uploaded"));
+      }
+      $scope.markNewImages();
   });
