@@ -1,7 +1,8 @@
 angular.module('uploadApp')
     .factory('Auth', function($window) {
-	var username = "";
+    var username = "";
     var password = "";
+	// do not add any trailing slashes to install location
     var installLocation = "";
     
     function getBasic() {

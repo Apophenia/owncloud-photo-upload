@@ -1,5 +1,5 @@
 angular.module("uploadApp")
-  .controller("galleryController", function ($scope, $log, Gallery, webDAV, Auth) {
+  .controller("galleryController", function ($scope, $log, $q, Gallery, webDAV, Auth) {
     var serverURL = ""; // must be populated for testing or development
     var promise = Gallery.getDeviceMedia();
     promise.then(function (result) {
@@ -24,9 +24,22 @@ angular.module("uploadApp")
         });
     };
       $scope.upload = function () {
-	  webDAV.put(Auth.getLocation() + "/helloworld.txt",
-		    "hello world")
-	      .then(console.log("uploaded"));
+	  var deferred = $q.defer();
+	  var promises = [];
+
+	  function summarize() {
+	      $scope.message("Finished with upload attempts.");
+	      defer.resolve();
+	  }
+
+	  angular.forEach($scope.photos, function(photo) {
+	      promises.push(webDAV.put(Auth.getLocation()
+				       + "/photos/"
+				       + photo.name,
+				       photo));
+	  });
+
+	  $q.all(promises).then(summarize);
       }
       $scope.markNewImages();
   });

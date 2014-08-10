@@ -22,4 +22,9 @@ describe("webdavServices", function() {
 	}); 
     });
 
+  /*  describe('put', function() {
+	it("should put a file on the server", function() {
+	    expect(webDAV.put("Hello world", "http://54.213.222.111/owncloud/remote.php/webdav/helloworld.txt")).toEqual(undefined);
+	});
+    }); */
 });
