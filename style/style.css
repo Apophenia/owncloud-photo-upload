@@ -19,6 +19,18 @@ div.thumb
 button {
     margin-bottom: 0;
 }
+.login-container {
+    width: 100%;
+    height: 100%;
+}
+.login-form {
+    width: 90%;
+    margin: 0 auto;
+}
+.login-form input{
+    width: 90%;
+    margin: 0 auto;
+}
 #media-container {
     height: 280px;
     width: 100%;
