@@ -10,18 +10,21 @@
   <br>
   <p>ownCloud Installation Location</p>
   <p>
-    <input id="cloud-location" type="text" placeholder="http://servername.com/ownCloud" required="">
+    <input id="cloud-location" type="text" placeholder="http://servername.com/ownCloud" required="" ng-model="location">
   </p>
   <p>Username</p>
   <p>
-    <input type="text" id="cloud-username" placeholder="" required="">
+    <input type="text" id="cloud-username" placeholder="" required="" ng-model="name">
   </p>
   <p>Password</p>
   <p>
-    <input type="text" id="cloud-password" placeholder="" required="">
+    <input type="text" id="cloud-password" placeholder="" required="" ng-model="password">
   </p>
   <p>
-  <button type="reset">Update</button>
+    {{location}}
+    {{name}}
+    {{password}}
+  <button type="update" ng-click="save()">Update</button>
   </p>
 </form>
 </div>

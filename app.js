@@ -9,7 +9,8 @@ angular.module("uploadApp", ["ngRoute"])
         controller: "galleryController"
       })
       .when("/options", {
-        templateUrl: "partials/options.html",
+          templateUrl: "partials/options.html",
+	  controller: "optionsController"
       });
   }
 );

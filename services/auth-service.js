@@ -3,14 +3,14 @@ angular.module('uploadApp')
     var username = "";
     var password = "";
 	// do not add any trailing slashes to install location
-    var installLocation = "";
+    var location = "";
     
     function getBasic() {
 	return ("Basic " + $window.btoa(username+":"+password));
     }
     
     function getLocation() {
-	return installLocation;
+	return location;
     }
 
     function setUsername(input) {
@@ -22,7 +22,7 @@ angular.module('uploadApp')
     }
 
     function setLocation(input) {
-	installLocation = input;
+	location = input;
     }
 
     return {
