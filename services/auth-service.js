@@ -3,37 +3,28 @@ angular.module('uploadApp')
 	
 	function init() {
 	    var deferred = $q.defer();
-
-	    if(setUp) {
-		deferred.resolve(true);
-		return deferred.promise;
-	    }
 	    
-	    var openRequest = $window.indexedDB.open("oCStore",1);
+	    var request = $window.indexedDB.open("oCStore", 1.0);
 	    
-	    openRequest.onerror = function(e) {
+	    request.onerror = function(e) {
 		console.log("Error opening IndexedDB");
 		console.dir(e);
 		deferred.reject(e.toString());
 	    };
 
-	    openRequest.onupgradeneeded = function(e) {
-		var thisDb = e.target.result;
-		var objectStore;
-		
-		if(!thisDb.objectStoreNames.contains("auth")) {
+	    request.onupgradeneeded = function() {
+		// this code will execute if the db did not previously exist
+		var db = request.result;
+		if(!db.objectStoreNames.contains("auth")) {
 		    objectStore = thisDb.createObjectStore("auth", {foo: "bar"});
 		}
 	    };
 
-	    openRequest.onsuccess = function(e) {
-		db = e.target.result;
-		db.onerror = function(event) {
-		    deferred.reject("Database error: " + event.target.errorCode);
-		};
-		setUp=true;
-		deferred.resolve(true);
-	    };	
+	    request.onsuccess = function() {
+		db = request.result;
+		deferred.resolve(db);
+	    };
+		
 	    return deferred.promise;
 	}
 
