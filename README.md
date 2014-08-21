@@ -10,7 +10,7 @@ If login information has been entered, pressing “upload” will send all of th
 
 What it doesn’t do
 ---
-The app does not currently include video or other media besides common picture types. It does not allow the user to pick which photos are uploaded. It does not store login data after the app is closed. It doesn't yet upload automatically, either.
+The app does not currently include video or other media besides common picture types. It does not allow the user to pick which photos are uploaded. There is currently an *upload* branch for developing automatic uploads, and a *login* branch to work on persisting login data after the app is closed.
 
 Setup
 ---
