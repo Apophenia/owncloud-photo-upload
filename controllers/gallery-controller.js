@@ -39,5 +39,5 @@ angular.module("uploadApp")
 
 	  $q.all(promises).then(summarize);
       };
-      $scope.markNewImages();
+      //   $scope.markNewImages();
   });

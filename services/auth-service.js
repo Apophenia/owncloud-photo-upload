@@ -1,8 +1,9 @@
 angular.module('uploadApp')
-    .factory('Auth', function($window, $q) {
+    .factory('Auth', function($window, $q, $rootScope) {
+	var db = null;
+
 	function init() {
 	    var deferred = $q.defer();
-	    
 	    var request = $window.indexedDB.open("oCStore", 1.0);
 	    
 	    request.onerror = function(e) {
@@ -11,50 +12,61 @@ angular.module('uploadApp')
 		deferred.reject(e.toString());
 	    };
 
+	    // The database did not previously exist, so create object stores and indexes.
+	    
 	    request.onupgradeneeded = function() {
-		// this code will execute if the db did not previously exist
-		var db = request.result;
-		if(!db.objectStoreNames.contains("auth")) {
-		    objectStore = thisDb.createObjectStore("auth", {foo: "bar"});
-		}
-	    };
-
-	    request.onsuccess = function() {
 		db = request.result;
-		deferred.resolve(db);
+		var store = db.createObjectStore("books", {keyPath: "isbn"});
+		console.log("successfully created objectStore");
+		var titleIndex = store.createIndex("by_title", "title", {unique: true});
+		var authorIndex = store.createIndex("by_author", "author");
+		
+		// Populate with initial data.
+		store.put({title: "Quarry Memories", author: "Fred", isbn: 123456});
+	    };
+
+	    request.onsuccess = function(event) {
+		$rootScope.$apply(function() {
+		    db = event.target.result;
+		    console.log(db);
+		    deferred.resolve(true);
+		});
+	    };
+	    return deferred.promise;
+	}
+	
+	function storeAuth() {
+	    var deferred = $q.defer();
+	    if(db === null){
+		deferred.reject("IndexedDB is not currently open.");
+	    }
+	    var tx = db.transaction("books", "readwrite");
+	    var store = tx.objectStore("books");
+	    var request = store.put({title: "Water Buffaloes", author: "Slate", isbn: 987654});
+	    request.onsuccess = function(e) {
+		deferred.resolve(true);
+	    };
+	    request.onerror = function() {
+		deferred.reject(request.error);
+	    };
+	    tx.onabort = function() {
+		deferred.reject(tx.error);
 	    };
 	    return deferred.promise;
 	}
 
-	function storeAuth(db) {
+	function retrieveAuth() {
 	    var deferred = $q.defer();
-	    var tx = db.transaction("auth", "readwrite");
-	    var store = tx.objectStore("auth");
+	    var tx = db.transaction("books", "readonly");
+	    var store = tx.objectStore("books");
 
-	    store.put({baz: "bat"});
-	    store.put({pippo: "pippo"});
-
-	    tx.oncomplete(function () {
-		deferred.resolve();
-	    });
-
-	    tx.onerror(function () {
-		deferred.reject();
-	    });
-	    return deferred.promise;
-	}
-
-	function retrieveAuth(db) {
-	    var deferred = $q.defer();
-	    var tx = db.transaction("auth", "readonly");
-	    var store = tx.objectStore("auth");
-
-	    var request = index.openCursor();
+	    var request = store.openCursor();
 	    request.onsuccess = function() {
 		var cursor = request.result;
 		var authObjs = [];
 		if (cursor) {
-		    // returns the first result it finds!
+		    // this seems to return the entire cursor when it resolves.
+		    // I'm not really sure why
 		    authObjs.push(this.result);
 		    deferred.resolve(authObjs);
 		}
@@ -63,7 +75,7 @@ angular.module('uploadApp')
 		}
 	    };
 	    return deferred.promise;
-	};
+	}
 
 	var username = "";
 	var password = "";
