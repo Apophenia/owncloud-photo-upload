@@ -16,13 +16,11 @@ angular.module('uploadApp')
 	    
 	    request.onupgradeneeded = function() {
 		db = request.result;
-		var store = db.createObjectStore("books", {keyPath: "isbn"});
+		var store = db.createObjectStore("auth", {keyPath: "id"});
 		console.log("successfully created objectStore");
-		var titleIndex = store.createIndex("by_title", "title", {unique: true});
-		var authorIndex = store.createIndex("by_author", "author");
 		
 		// Populate with initial data.
-		store.put({title: "Quarry Memories", author: "Fred", isbn: 123456});
+		store.put({username: "test", password: "test", location: "http://demo.owncloud.org", id: 1});
 	    };
 
 	    request.onsuccess = function(event) {
@@ -40,9 +38,9 @@ angular.module('uploadApp')
 	    if(db === null){
 		deferred.reject("IndexedDB is not currently open.");
 	    }
-	    var tx = db.transaction("books", "readwrite");
-	    var store = tx.objectStore("books");
-	    var request = store.put({title: "Water Buffaloes", author: "Slate", isbn: 987654});
+	    var tx = db.transaction("auth", "readwrite");
+	    var store = tx.objectStore("auth");
+	    var request = store.put({username: "test2", password: "test2", location: "http://demo.owncloud.org", id: 2});
 	    request.onsuccess = function(e) {
 		deferred.resolve(true);
 	    };
@@ -57,16 +55,15 @@ angular.module('uploadApp')
 
 	function retrieveAuth() {
 	    var deferred = $q.defer();
-	    var tx = db.transaction("books", "readonly");
-	    var store = tx.objectStore("books");
+	    var tx = db.transaction("auth", "readonly");
+	    var store = tx.objectStore("auth");
 
 	    var request = store.openCursor();
 	    request.onsuccess = function() {
 		var cursor = request.result;
 		var authObjs = [];
 		if (cursor) {
-		    // this seems to return the entire cursor when it resolves.
-		    // I'm not really sure why
+		    // This returns a cursor result; we will want the "value"
 		    authObjs.push(this.result);
 		    deferred.resolve(authObjs);
 		}
