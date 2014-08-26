@@ -1,9 +1,9 @@
 angular.module('uploadApp')
     .factory('Auth', function($window) {
-    var username = "";
-    var password = "";
+    var username = "test12";
+    var password = "test12";
 	// do not add any trailing slashes to install location
-    var location = "";
+    var location = "http://localhost/core/remote.php/webdav";
     
     function getBasic() {
 	return ("Basic " + $window.btoa(username+":"+password));

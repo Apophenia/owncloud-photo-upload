@@ -1,6 +1,8 @@
 angular.module("uploadApp")
   .controller("galleryController", function ($scope, $log, $q, Gallery, webDAV, Auth) {
+    
     var serverURL = ""; // must be populated for testing or development
+    
     var promise = Gallery.getDeviceMedia();
     promise.then(function (result) {
       $scope.photos = result;
@@ -23,23 +25,25 @@ angular.module("uploadApp")
           });
         });
     };
-      $scope.upload = function () {
-	  var deferred = $q.defer();
-	  var promises = [];
+    
+    $scope.upload = function () {
+  	  var deferred = $q.defer();
+  	  var promises = [];
 
-	  function summarize() {
-	      $scope.message("Finished with upload attempts.");
-	      defer.resolve();
-	  }
+  	  function summarize() {
+  	      $scope.message("Finished with upload attempts.");
+  	      deferred.resolve();
+  	  }
 
-	  angular.forEach($scope.photos, function(photo) {
-	      promises.push(webDAV.put(Auth.getLocation()
-				       + "/photos/"
-				       + photo.name,
-				       photo));
-	  });
+  	  angular.forEach($scope.photos, function(photo) {
+  	      promises.push(webDAV.put(Auth.getLocation()
+  				       + "/photos/"
+  				       + photo.name,
+  				       photo));
+  	  });
 
-	  $q.all(promises).then(summarize);
-      }
-      $scope.markNewImages();
+  	  $q.all(promises).then(summarize);
+    }
+    
+    $scope.markNewImages();
   });

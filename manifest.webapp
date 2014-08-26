@@ -23,5 +23,19 @@
       "description": "Required to back up photos from SD card"
     },
     "systemXHR": {}
+  },
+
+  "activities": {
+
+    "share": {
+      "href": "./index.html#/activity",
+      "disposition": "inline",
+      "filters": {
+        "type": "image/*"
+      },
+      "returnValue": false
+    }
+
   }
+
 }
