@@ -11,15 +11,15 @@ angular.module('uploadApp')
 
 		cursor.onsuccess = function() {
 		    if (this.done) {
-			photos.forEach(function(photo) {
-			    photo.src = $window.URL.createObjectURL(photo);
-			    photo.onServer = false;
-			});
-			deferred.resolve(photos);
+				photos.forEach(function(photo) {
+				    photo.src = $window.URL.createObjectURL(photo);
+				    photo.onServer = false;
+				});
+				deferred.resolve(photos);
 		    }
 		    else {
-			photos.push(this.result);
-			this.continue();
+				photos.push(this.result);
+				this.continue();
 		    }
 		};
 
@@ -28,9 +28,9 @@ angular.module('uploadApp')
 		};
 
 		return deferred.promise;
-	    },
+	},
 	    // this needs a refactor! perhaps with Underscore?
-	    getMediaList: function(xml) {
+	getMediaList: function(xml) {
 		var parser = new DOMParser();
 		var doc = parser.parseFromString(xml, "text/html");
 		var result = [];
@@ -55,4 +55,4 @@ angular.module('uploadApp')
 		});
 	    }
 	};
-    });
+});

@@ -1,25 +1,18 @@
 angular.module("uploadApp")
-  .controller("activityController", function ($scope, $log, $window, $q, Activity, webDAV, Auth) {
+  .controller("activityController", function ($scope, $window, $q, Activity, webDAV, Auth) {
+
+    var promise = Activity.getPhotoPath();
+
+    $scope.photoPath = "";
 
     promise.then(function (result) {
-      $scope.photos = result;
-      $scope.$log = $log;
+      $scope.photoPath = result;
     }, function (reason) {
       $scope.error('Failed: ' + reason);
     }, function (update) {
       $scope.info('Notification: ' + update);
     });
-
-    $window.navigator.mozSetMessageHandler('activity', function(activityRequest) {
-        var option = activityRequest.source;
-
-        $scope.photo = option.name;    
-
-        if (option.name === "share") {
-             photoData = option.url;    
-        }
-    });
-
+         
     $scope.upload = function () {
   	  var deferred = $q.defer();
   	  var promise;

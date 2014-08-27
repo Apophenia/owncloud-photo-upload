@@ -1,13 +1,20 @@
 angular.module('uploadApp')
-    .service('Activity', function($window) {
+    .service('Activity', function($window, $q) {
     
-    this.getPhotoData = function() {
+    this.getPhotoPath = function() {
 
-        var photoData;
-
+        var deferred = $q.defer();
         
+        $window.navigator.mozSetMessageHandler('activity', function(activityRequest) {
+            var option = activityRequest.source;
 
-        return photoData;
+            if (option.name === "share") {
+                filePath = option.data.filepaths[0];
+                deferred.resolve(filePath);
+            }
+        });
+
+        return deferred.promise;
     };
 
 });

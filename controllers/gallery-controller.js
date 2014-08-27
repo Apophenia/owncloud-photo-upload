@@ -4,6 +4,7 @@ angular.module("uploadApp")
     var serverURL = ""; // must be populated for testing or development
     
     var promise = Gallery.getDeviceMedia();
+
     promise.then(function (result) {
       $scope.photos = result;
       $scope.$log = $log;
@@ -12,7 +13,7 @@ angular.module("uploadApp")
     }, function (update) {
       $scope.info('Notification: ' + update);
     });
-      
+    
     $scope.markNewImages = function () {
       webDAV
         .get(serverURL)
