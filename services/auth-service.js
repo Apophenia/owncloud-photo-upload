@@ -63,9 +63,13 @@ angular.module('uploadApp')
 		var cursor = request.result;
 		var authObjs = [];
 		if (cursor) {
+		    console.log("cursor:");
+		    console.log(this.result.value);
 		    // This returns a cursor result; we will want the "value"
-		    authObjs.push(this.result);
-		    deferred.resolve(authObjs);
+		    authObjs.push(this.result.value);
+		    $rootScope.$apply(function () {
+			deferred.resolve(authObjs);
+		    });
 		}
 		else {
 		    deferred.reject();
@@ -73,10 +77,6 @@ angular.module('uploadApp')
 	    };
 	    return deferred.promise;
 	}
-
-	var username = "";
-	var password = "";
-	var installLocation = "";
     
     function encodeBasic(auth) {
 	return ("Basic " + $window.btoa(username+":"+password));
