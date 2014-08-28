@@ -3,10 +3,9 @@ angular.module("uploadApp")
 
     var promise = Activity.getPhotoPath();
 
-    $scope.photoPath = "";
-
     promise.then(function (result) {
-      $scope.photoPath = result;
+      $scope.photo = result;
+      $scope.photo.src = $window.URL.createObjectURL(result);
     }, function (reason) {
       $scope.error('Failed: ' + reason);
     }, function (update) {
@@ -19,15 +18,15 @@ angular.module("uploadApp")
 
   	  function summarize() {
   	      $scope.message("Finished with upload attempts.");
-  	      deferred.resolve();
+          deferred.resolve();
   	  }
 
-  	  var promise = push(webDAV.put(Auth.getLocation()
+  	  var promise = webDAV.put(Auth.getLocation()
   				            + "/photos/"
-  				            + photo.name,
-  				          photo));
+  				            + $scope.photo.name,
+  				          $scope.photo);
 
-  	  $q.all(promises).then(summarize);
+      promise.then(summarize);
     }
 
 });

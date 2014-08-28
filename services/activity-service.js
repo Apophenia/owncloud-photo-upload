@@ -16,16 +16,18 @@ angular.module('uploadApp')
 
                 //not sure about this, maybe two promises need to be piped
                 getRequest.onsuccess = function() {
-                    deferred.resolve($window.URL.createObjectURL(getRequest.result));
+                    deferred.resolve(getRequest.result);
                 };
 
                 getRequest.onerror = function() {
                     deferred.resolve("errorrr");
                 };
 
-                // TODO: handle error part
-                // getRequest.onerror = function() {
-                // }
+                //TODO: return a success message to the caller of the activity
+                // *not here*, but after the upload 
+                // 
+                //activityRequest.postResult(picture);
+
             }
         });
 
