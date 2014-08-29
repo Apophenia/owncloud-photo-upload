@@ -1,35 +1,85 @@
 angular.module('uploadApp')
-    .factory('Auth', function($window) {
-    var username = "test12";
-    var password = "test12";
-	// do not add any trailing slashes to install location
-    var location = "http://localhost/core/remote.php/webdav";
+    .factory('Auth', function($window, $q, $rootScope) {
+	var db = null;
+
+	function init() {
+	    var deferred = $q.defer();
+	    var request = $window.indexedDB.open("oCStore", 1.0);
+	    
+	    request.onerror = function(e) {
+		console.log("Error opening IndexedDB");
+		console.dir(e);
+		deferred.reject(e.toString());
+	    };
+
+	    // The database did not previously exist, so create object stores and indexes
+	    request.onupgradeneeded = function() {
+		db = request.result;
+		var store = db.createObjectStore("auth", {keyPath: "id"});
+		console.log("successfully created objectStore");
+	    };
+
+	    request.onsuccess = function(event) {
+		$rootScope.$apply(function() {
+		    db = event.target.result;
+		    deferred.resolve(true);
+		});
+	    };
+	    return deferred.promise;
+	}
+	
+	function storeAuth(credentials) {
+	    var deferred = $q.defer();
+	    if(db === null){
+		deferred.reject("IndexedDB is not currently open.");
+	    }
+	    credentials.id = 0;
+	    var tx = db.transaction("auth", "readwrite");
+	    var store = tx.objectStore("auth");
+	    var request = store.put(credentials);
+	    request.onsuccess = function(e) {
+		deferred.resolve(true);
+	    };
+	    request.onerror = function() {
+		deferred.reject(request.error);
+	    };
+	    tx.onabort = function() {
+		deferred.reject(tx.error);
+	    };
+	    return deferred.promise;
+	}
+
+	function retrieveAuth() {
+	    var deferred = $q.defer();
+	    var tx = db.transaction("auth", "readonly");
+	    var store = tx.objectStore("auth");
+
+	    var request = store.openCursor();
+	    request.onsuccess = function() {
+		var cursor = request.result;
+		var authObjs = [];
+		if (cursor) {
+		    // This returns a cursor result; we will want the "value"
+		    authObjs.push(this.result.value);
+		    $rootScope.$apply(function () {
+			deferred.resolve(authObjs);
+		    });
+		}
+		else {
+		    deferred.reject();
+		}
+	    };
+	    return deferred.promise;
+	}
     
-    function getBasic() {
+    function encodeBasic(auth) {
 	return ("Basic " + $window.btoa(username+":"+password));
     }
     
-    function getLocation() {
-	return location;
-    }
-
-    function setUsername(input) {
-	username = input;
-    }
-
-    function setPassword(input) {
-	password = input;
-    }
-
-    function setLocation(input) {
-	location = input;
-    }
-
     return {
-	getBasic: getBasic,
-	getLocation: getLocation,
-	setUsername: setUsername,
-	setPassword: setPassword,
-	setLocation: setLocation,
+	encodeBasic: encodeBasic,
+	storeAuth: storeAuth,
+	retrieveAuth: retrieveAuth,
+	init: init
     };
 });
