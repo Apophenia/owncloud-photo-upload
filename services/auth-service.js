@@ -28,15 +28,15 @@ angular.module('uploadApp')
 	    return deferred.promise;
 	}
 	
-	function storeAuth(credentials) {
+	function store(credentials) {
 	    var deferred = $q.defer();
 	    if(db === null){
 		deferred.reject("IndexedDB is not currently open.");
 	    }
 	    credentials.id = 0;
 	    var tx = db.transaction("auth", "readwrite");
-	    var store = tx.objectStore("auth");
-	    var request = store.put(credentials);
+	    var objectStore = tx.objectStore("auth");
+	    var request = objectStore.put(credentials);
 	    request.onsuccess = function(e) {
 		deferred.resolve(true);
 	    };
@@ -62,7 +62,7 @@ angular.module('uploadApp')
 		    // This returns a cursor result; we will want the "value"
 		    authObjs.push(this.result.value);
 		    $rootScope.$apply(function () {
-			deferred.resolve(authObjs);
+			deferred.resolve(authObjs[0]);
 		    });
 		}
 		else {
@@ -72,14 +72,19 @@ angular.module('uploadApp')
 	    return deferred.promise;
 	}
     
-    function encodeBasic(auth) {
-	return ("Basic " + $window.btoa(username+":"+password));
-    }
-    
-    return {
-	encodeBasic: encodeBasic,
-	storeAuth: storeAuth,
-	retrieveAuth: retrieveAuth,
-	init: init
-    };
-});
+	function encodeBasic() {
+	    var deferred = $q.defer();
+	    retrieve().then(function (credentials) {
+		deferred.resolve("Basic " + $window.btoa(credentials.username+":"+credentials.password));
+	    }, function(error) {
+		deferred.reject(error);
+	    });
+	    return deferred.promise;
+	}
+	return {
+	    encodeBasic: encodeBasic,
+	    store: store,
+	    retrieve: retrieve,
+	    init: init
+	};
+    });

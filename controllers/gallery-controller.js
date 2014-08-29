@@ -30,19 +30,18 @@ angular.module("uploadApp")
 	$scope.upload = function () {
   	    var deferred = $q.defer();
   	    var promises = [];
-
   	    function summarize() {
-  		$scope.message("Finished with upload attempts.");
+		console.log("Finished with upload attempts.");
   		deferred.resolve();
   	    }
-
-  	    angular.forEach($scope.photos, function(photo) {
-  		promises.push(webDAV.put(Auth.getLocation()
-  					 + "/photos/"
-  					 + photo.name,
-  					 photo));
+	    Auth.retrieve().then(function (credentials) {
+		angular.forEach($scope.photos, function(photo) {
+		    promises.push(webDAV.put(credentials.location
+					     + "/remote.php/webdav/photos/"
+					     + photo.name,
+					     photo));
+		})
   	    });
-
   	    $q.all(promises).then(summarize);
 	}    
 	//    $scope.markNewImages();

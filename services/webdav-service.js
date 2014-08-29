@@ -19,7 +19,7 @@ angular.module('uploadApp')
 		var deferred = $q.deferred();
 		var xhr = new XMLHttpRequest({mozSystem: true});
 		xhr.open("PROPFIND", url, true);
-		xhr.setRequestHeader("Auth", this.genAuth());
+		xhr.setRequestHeader("Auth", Auth.encodeBasic());
 		xhr.setRequestHeader("Content-type",
 				     "application/xml; charset='utf-8'");
 		xhr.onload = function (e) {
@@ -69,21 +69,27 @@ angular.module('uploadApp')
 		var deferred = $q.defer();
 		var xhr = new XMLHttpRequest({mozSystem: true});
 		xhr.open("PUT", url, true);
-		xhr.setRequestHeader("Authorization", Auth.getBasic());
-		xhr.onload = function (e) {
-		    if (xhr.readyState === 4) {
-			if (xhr.status === 200 || xhr.status === 204) {
-			    deferred.resolve(xhr.responseText);
-			} else {
-			    deferred.reject(xhr.statusText);
+		xhr.timeout = 120000;
+		xhr.ontimeout = deferred.reject("Connection timed out");
+		Auth.encodeBasic().then(function (thing) {
+		    Auth.encodeBasic().then(function (encodedCredentials) {
+		    xhr.setRequestHeader("Authorization", encodedCredentials);
+		    xhr.onload = function (e) {
+			if (xhr.readyState === 4) {
+			    if (xhr.status === 200 || xhr.status === 204) {
+				deferred.resolve(xhr.responseText);
+			    } else {
+				deferred.reject(xhr.statusText);
+			    }
 			}
-		    }
-		};
-		xhr.onerror = function () {
-		    deferred.reject(xhr.statusText);
-		};
-		xhr.send(img);
+		    };
+		    xhr.onerror = function () {
+			deferred.reject("Connection failed");
+		    };
+		    xhr.send(img);
+		    });   
+		});
 		return deferred.promise;
-	    },	
+	    }
 	};
     });
