@@ -12,35 +12,31 @@ angular.module('uploadApp')
 		deferred.reject(e.toString());
 	    };
 
-	    // The database did not previously exist, so create object stores and indexes.
-	    
+	    // The database did not previously exist, so create object stores and indexes
 	    request.onupgradeneeded = function() {
 		db = request.result;
 		var store = db.createObjectStore("auth", {keyPath: "id"});
 		console.log("successfully created objectStore");
-		
-		// Populate with initial data.
-		store.put({username: "test", password: "test", location: "http://demo.owncloud.org", id: 1});
 	    };
 
 	    request.onsuccess = function(event) {
 		$rootScope.$apply(function() {
 		    db = event.target.result;
-		    console.log(db);
 		    deferred.resolve(true);
 		});
 	    };
 	    return deferred.promise;
 	}
 	
-	function storeAuth() {
+	function storeAuth(credentials) {
 	    var deferred = $q.defer();
 	    if(db === null){
 		deferred.reject("IndexedDB is not currently open.");
 	    }
+	    credentials.id = 0;
 	    var tx = db.transaction("auth", "readwrite");
 	    var store = tx.objectStore("auth");
-	    var request = store.put({username: "test2", password: "test2", location: "http://demo.owncloud.org", id: 2});
+	    var request = store.put(credentials);
 	    request.onsuccess = function(e) {
 		deferred.resolve(true);
 	    };
@@ -63,8 +59,6 @@ angular.module('uploadApp')
 		var cursor = request.result;
 		var authObjs = [];
 		if (cursor) {
-		    console.log("cursor:");
-		    console.log(this.result.value);
 		    // This returns a cursor result; we will want the "value"
 		    authObjs.push(this.result.value);
 		    $rootScope.$apply(function () {

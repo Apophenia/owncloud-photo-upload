@@ -20,13 +20,8 @@
   <p>
     <input type="text" id="cloud-password" placeholder="" required="" ng-model="credentials.password">
   </p>
-  <p>
-    :D
-    {{credentials.location}}
-    {{credentials.username}}
-    {{credentials.password}}
   <button type="update" ng-click="save()">Update</button>
-  </p>
+  <div id=status>{{updateStatus}}</div> 
 </form>
 </div>
 </div>
