@@ -49,7 +49,7 @@ angular.module('uploadApp')
 	    return deferred.promise;
 	}
 
-	function retrieveAuth() {
+	function retrieve() {
 	    var deferred = $q.defer();
 	    var tx = db.transaction("auth", "readonly");
 	    var store = tx.objectStore("auth");
