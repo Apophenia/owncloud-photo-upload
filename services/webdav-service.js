@@ -70,13 +70,15 @@ angular.module('uploadApp')
 		var xhr = new XMLHttpRequest({mozSystem: true});
 		xhr.open("PUT", url, true);
 		xhr.timeout = 120000;
-		xhr.ontimeout = deferred.reject("Connection timed out");
+		xhr.ontimeout = function() {
+		    deferred.reject("Connection timed out");
+		};
 		Auth.encodeBasic().then(function (thing) {
 		    Auth.encodeBasic().then(function (encodedCredentials) {
 		    xhr.setRequestHeader("Authorization", encodedCredentials);
 		    xhr.onload = function (e) {
 			if (xhr.readyState === 4) {
-			    if (xhr.status === 200 || xhr.status === 204) {
+			    if (xhr.status === 200 || xhr.status === 204 || xhr.status === 201) {
 				deferred.resolve(xhr.responseText);
 			    } else {
 				deferred.reject(xhr.statusText);
@@ -87,7 +89,7 @@ angular.module('uploadApp')
 			deferred.reject("Connection failed");
 		    };
 		    xhr.send(img);
-		    });   
+		    });
 		});
 		return deferred.promise;
 	    }

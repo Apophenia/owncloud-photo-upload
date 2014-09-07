@@ -15,6 +15,7 @@ div.thumb
     height: 132px;
     margin: 7px 0px 0px 0px;
     display: inline-block;
+    position: relative;
 }
 button {
     margin-bottom: 0;
@@ -61,4 +62,27 @@ button {
     background-color:#999; 
     padding:0px; 
     bottom:0px;
+}
+.onserver {
+  opacity: 0.4;
+}
+.checkbox {
+    margin: 0px 0px 15px 2px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+.double {
+  zoom:2;
+  transform:scale(2);
+  -ms-transform:scale(2);
+  -webkit-transform:scale(2);
+  -o-transform:scale(2);
+  -moz-transform:scale(2);
+  transform-origin:0 0;
+  -ms-transform-origin:0 0;
+  -webkit-transform-origin:0 0;
+  -o-transform-origin:0 0;
+  -moz-transform-origin:0 0;
+  -webkit-transform-origin:0 0;
 }
