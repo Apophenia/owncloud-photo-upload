@@ -4,13 +4,13 @@ The ownCloud Photo Upload app is an application for Firefox OS. Like other FxOS 
 
 What it does
 ---
-The app currently allows you to input a username, a password, and an installation location (e.g.`http://myservername.com/owncloud`). This information is currently only saved for the current session.
+The app currently allows you to input a username, a password, and an installation location (e.g.`http://myservername.com/owncloud`). This information is saved locally in IndexedDB, but it may be cleared by clearing browser storage or reloading the application in the simulator or WebIDE.
 
-If login information has been entered, pressing “upload” will send all of the photos visible in the gallery to the specified ownCloud server.
+If login information has been entered, pressing “upload” will send all of the marked photos to the specified ownCloud server.
 
 What it doesn’t do
 ---
-The app does not currently include video or other media besides common picture types. It does not allow the user to pick which photos are uploaded. There is currently an *upload* branch for developing automatic uploads, and a *login* branch to work on persisting login data after the app is closed.
+The app does not currently include video or other media besides common picture types, and it does not upload automatically when new photographs are taken. There is currently an *upload* branch for developing automatic uploads.
 
 Setup
 ---
