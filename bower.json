@@ -1,0 +1,33 @@
+{
+  "name": "owncloud-photo-upload",
+  "version": "0.1.0",
+  "homepage": "https://github.com/Apophenia/owncloud-photo-upload",
+  "authors": [
+    "Lyndsey Jane Moulds <lyndsey@lyndseyjane.com>"
+  ],
+  "description": "ownCloud Photo Upload app for Firefox OS",
+  "main": "index.html",
+  "keywords": [
+    "owncloud",
+    "photo",
+    "fxos",
+    "upload",
+    "webdav"
+  ],
+  "license": "GPL",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "underscore": "~1.7.0",
+    "angular": "~1.3.1",
+    "angular-route": "~1.3.1",
+    "building-blocks": "gh-pages"
+  }
+}
