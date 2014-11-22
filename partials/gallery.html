@@ -7,13 +7,11 @@
   </header>
 </section>
 <div id="contents">
-  <div id="media-container">
-    <div ng-repeat="photo in photos" class="thumb">
-       <img src="{{photo.src}}" height=132 width=99 ng-class="{onserver: photo.onServer}">
-       <input type="checkbox" class="checkbox double" ng-model="photo.selected">
-    </div>
-    <div ng-show="photos.length%3>0" class="thumb"></div>
-    <div ng-show="photos.length%3==1" class="thumb"></div>
+  <div class="thumbnails">
+      <div ng-repeat="photo in photos" class="thumbnail">
+         <img class="thumbnailImage" src="{{photo.src}}" ng-class="{onserver: photo.onServer}">
+<!--          <input type="checkbox" class="checkbox double" ng-model="photo.selected"> -->
+      </div>
   </div>
 </div>
 <div id="status-bar">
