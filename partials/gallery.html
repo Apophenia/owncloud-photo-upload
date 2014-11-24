@@ -1,16 +1,22 @@
-<section role="region">
-  <header>
+<section id="gallery-view" role="region">
+  <header id="gallery-view-top">
+    <a href="#options">
+      <span class="icon icon-menu">Settings</span>
+    </a>
     <menu type="toolbar">
-      <a href="#options"><span class="icon icon-options"></span></a>
+      <a>
+        <span class="icon"></span>
+      </a>
     </menu>
     <h1>Photos</h1>
   </header>
 </section>
-<div id="contents">
+
+<!-- <div id="contents">
   <div class="thumbnails">
       <div ng-repeat="photo in photos" class="thumbnail">
          <img class="thumbnailImage" src="{{photo.src}}" ng-class="{onserver: photo.onServer}">
-<!--          <input type="checkbox" class="checkbox double" ng-model="photo.selected"> -->
+         <input type="checkbox" class="checkbox double" ng-model="photo.selected">
       </div>
   </div>
 </div>
@@ -18,4 +24,4 @@
   <div id="upload-button" ng-click="uploadSelected()">
   <button>Upload</button>
   </div>
-</div>
+</div> -->
