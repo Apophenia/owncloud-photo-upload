@@ -1,0 +1,8 @@
+#modify-account-view form ol {
+    margin: 1rem 1.5rem 0px;
+    overflow: hidden;
+}
+
+#modify-account-view form ol li {
+    margin: 0px 0px 0.5rem;
+}

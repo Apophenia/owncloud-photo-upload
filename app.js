@@ -8,8 +8,8 @@ angular.module("uploadApp", ["ngRoute"])
         templateUrl: "partials/gallery.html",
         controller: "galleryController"
       })
-      .when("/options", {
-        templateUrl: "partials/options.html",
+      .when("/settings", {
+        templateUrl: "partials/settings.html",
 	      controller: "optionsController"
       })
       .when("/activity", {

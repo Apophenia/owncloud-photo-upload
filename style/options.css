@@ -1,12 +1,9 @@
-.login-container {
-    width: 100%;
-    height: 100%;
+#modify-account-view form ol {
+     width: 90%;
+     
+/*      width: calc(100% - 3rem); */
 }
-.login-form {
-    width: 90%;
-    margin: 0 auto;
-}
-.login-form input{
-    width: 90%;
-    margin: 0 auto;
+
+#modify-account-view form ol li {
+/*      text-align: center; */
 }
