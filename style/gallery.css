@@ -19,6 +19,10 @@ body {
   overflow: hidden;
 }
 
+#gallery-view-top {
+  /* ownCloud default color */
+  background-color: #1D2D44;
+}
 /*
   section {
   width: 100%;

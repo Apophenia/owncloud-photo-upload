@@ -1,3 +1,16 @@
+#modify-settings-header {
+    background-color: #F4F4F4;
+}
+
+#modify-settings-header h1 {
+    /* ownCloud default color */
+    color: #1D2D44;
+}
+
+#modify-account-view h2 {
+    background-color: #E7E7E7;
+}
+
 #modify-account-view form ol {
     margin: 1rem 1.5rem 0px;
     overflow: hidden;
