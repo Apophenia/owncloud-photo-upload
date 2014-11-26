@@ -1,5 +1,5 @@
 angular.module("uploadApp")
-  .controller("optionsController", function ($window, $scope, $log, $q, Auth) {
+  .controller("settingsController", function ($window, $scope, $log, $q, Auth) {
       $scope.$log = $log;
       $scope.save = function() {
 	  $scope.updateStatus = "Updating...";
