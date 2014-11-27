@@ -1,8 +1,8 @@
 angular.module('uploadApp')
-    .factory('webDAV', function(Auth, $q) {
-	return {
+.service('webDAV', function(Auth, $q) {
+    
 	    // returns an XML body including the given properties
-	    genPropRequestBody: function(properties) {
+    this.genPropRequestBody = function(properties) {
 		var serializer = new XMLSerializer();
 		var propBody = document.implementation.createDocument("DAV:", 
 								      "propfind");
@@ -13,13 +13,14 @@ angular.module('uploadApp')
 		}
 		propBody.documentElement.appendChild(prop);
 		return(serializer.serializeToString(propBody));
-	    },
+	};
 
-	    propfind: function(url, properties) {
-		var deferred = $q.deferred();
+    this.propfind = function(url, auth, properties) {
+		var deferred = $q.defer();
 		var xhr = new XMLHttpRequest({mozSystem: true});
 		xhr.open("PROPFIND", url, true);
-		xhr.setRequestHeader("Auth", Auth.encodeBasic());
+		// xhr.setRequestHeader("Auth", Auth.encodeBasic());
+		//xhr.setRequestHeader("Authorization", "Basic " + btoa(auth.user + ":" + auth.pass));
 		xhr.setRequestHeader("Content-type",
 				     "application/xml; charset='utf-8'");
 		xhr.onload = function (e) {
@@ -42,9 +43,9 @@ angular.module('uploadApp')
 		    xhr.send(body);
 		}
 		return deferred.promise;
-	    },
+	};
 
-	    get: function(url) {
+    this.get = function(url) {
 		var deferred = $q.defer();
 		var xhr = new XMLHttpRequest({mozSystem: true});
 		xhr.open("GET", url, true);
@@ -63,9 +64,9 @@ angular.module('uploadApp')
 		};
 		xhr.send(null);
 		return deferred.promise;
-	    },
+    };
 
-	    put: function(url, img) {
+    this.put = function(url, img) {
 		var deferred = $q.defer();
 		var xhr = new XMLHttpRequest({mozSystem: true});
 		xhr.open("PUT", url, true);
@@ -92,6 +93,6 @@ angular.module('uploadApp')
 		    });
 		});
 		return deferred.promise;
-	    }
-	};
-    });
+    };
+    
+});

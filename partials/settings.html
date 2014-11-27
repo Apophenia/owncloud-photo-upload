@@ -14,16 +14,24 @@
     <form>
       <ol>
         <li>
-          <input name="title" placeholder="Server address (http://...)" dir="auto" type="text">
+          <input name="title" placeholder="Server address (http://...)" 
+            dir="auto" type="text" ng-model="credentials.location">
         </li>
         <li>
-          <input name="title" placeholder="Username" dir="auto" type="text">
+          <input name="title" placeholder="Username" dir="auto" type="text"
+            ng-model="credentials.username">
         </li>
         <li>
-          <input name="title" placeholder="Password" dir="auto" type="password">
+          <input name="title" placeholder="Password" dir="auto" type="password"
+            ng-model="credentials.password">
         </li>
         <li>
-          <button>Check connection</button>
+          <button id="check-connection-btn" ng-click="checkConnection()">
+            Check connection
+          </button>
+        </li>
+        <li>
+            <div>status {{ updateStatus }}</div>
         </li>
       </ol>
     </form>

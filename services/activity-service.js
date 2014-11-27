@@ -1,6 +1,6 @@
 angular.module('uploadApp')
-    .service('Activity', function($window, $q) {
-    
+.service('Activity', function($window, $q) {
+
     this.getPhotoPath = function() {
 
         var deferred = $q.defer();
@@ -33,5 +33,4 @@ angular.module('uploadApp')
 
         return deferred.promise;
     };
-
 });

@@ -1,5 +1,5 @@
 angular.module("uploadApp")
-.controller("settingsController", function ($window, $scope, $log, $q, Auth) {
+.controller("settingsController", function ($window, $scope, $log, $q, webDAV, Auth) {
     $scope.$log = $log;
     
     $scope.save = function() {
@@ -8,8 +8,7 @@ angular.module("uploadApp")
             function(value) {
                 $scope.updateStatus = "Updated";
             }, function () {
-            $scope.updateStatus = "An error occured when updating account 
-                information."
+                $scope.updateStatus = "An error occured when updating account information."
             }
         );
     };
@@ -26,5 +25,21 @@ angular.module("uploadApp")
         });
     };
 
-    $scope.populate();
+    $scope.checkConnection = function() {
+        $scope.updateStatus = "Checking...";
+    
+        var url = $scope.credentials.location;
+        var auth = {user: $scope.credentials.username, 
+                    pass: $scope.credentials.password};
+        console.log(auth)
+        webDAV.propfind(url, auth).then(function (response) {
+                $scope.updateStatus = response;
+            },
+            function (error) {
+                $scope.updateStatus = error;
+            }
+        );
+    };
+
+    // $scope.populate();
 });

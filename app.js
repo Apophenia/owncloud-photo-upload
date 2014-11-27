@@ -10,7 +10,7 @@ angular.module("uploadApp", ["ngRoute"])
       })
       .when("/settings", {
         templateUrl: "partials/settings.html",
-	      controller: "optionsController"
+	      controller: "settingsController"
       })
       .when("/activity", {
         templateUrl: "partials/activity.html",

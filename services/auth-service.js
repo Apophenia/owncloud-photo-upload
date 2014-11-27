@@ -81,6 +81,7 @@ angular.module('uploadApp')
 	    });
 	    return deferred.promise;
 	}
+	
 	return {
 	    encodeBasic: encodeBasic,
 	    store: store,
