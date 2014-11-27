@@ -28,17 +28,24 @@ angular.module("uploadApp")
     $scope.checkConnection = function() {
         $scope.updateStatus = "Checking...";
     
-        var url = $scope.credentials.location;
-        var auth = {user: $scope.credentials.username, 
-                    pass: $scope.credentials.password};
-        console.log(auth)
-        webDAV.propfind(url, auth).then(function (response) {
-                $scope.updateStatus = response;
-            },
-            function (error) {
-                $scope.updateStatus = error;
-            }
-        );
+        if (!$scope.credentials) {
+            $scope.updateStatus = "Account information missing";
+        }
+        else {
+           var url = $scope.credentials.location;
+           var auth = {user: $scope.credentials.username, 
+                       pass: $scope.credentials.password};
+        
+           console.log(auth)
+           webDAV.get(url, auth).then(function (response) {
+                  $scope.updateStatus = "Success!";
+               },
+               function (error) {
+                  console.log(error);
+                  $scope.updateStatus = "Error";
+               }
+           );
+        }
     };
 
     // $scope.populate();

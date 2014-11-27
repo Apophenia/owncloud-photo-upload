@@ -20,7 +20,7 @@ angular.module('uploadApp')
 		var xhr = new XMLHttpRequest({mozSystem: true});
 		xhr.open("PROPFIND", url, true);
 		// xhr.setRequestHeader("Auth", Auth.encodeBasic());
-		//xhr.setRequestHeader("Authorization", "Basic " + btoa(auth.user + ":" + auth.pass));
+		xhr.setRequestHeader("Authorization", "Basic " + btoa(auth.user + ":" + auth.pass));
 		xhr.setRequestHeader("Content-type",
 				     "application/xml; charset='utf-8'");
 		xhr.onload = function (e) {
@@ -45,11 +45,13 @@ angular.module('uploadApp')
 		return deferred.promise;
 	};
 
-    this.get = function(url) {
+    this.get = function(url, auth) {
 		var deferred = $q.defer();
 		var xhr = new XMLHttpRequest({mozSystem: true});
 		xhr.open("GET", url, true);
-		xhr.setRequestHeader("Authorization", Auth.getBasic());
+		//xhr.setRequestHeader("Authorization", Auth.getBasic());
+		//xhr.setRequestHeader("Auth", Auth.encodeBasic());
+		xhr.setRequestHeader("Authorization", "Basic " + btoa(auth.user + ":" + auth.pass));
 		xhr.onload = function (e) {
 		    if (xhr.readyState === 4) {
 			if (xhr.status === 200) {
