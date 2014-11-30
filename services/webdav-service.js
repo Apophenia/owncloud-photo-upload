@@ -1,7 +1,7 @@
 angular.module('uploadApp')
 .service('webDAV', function(Auth, $q) {
     
-	    // returns an XML body including the given properties
+	// returns an XML body including the given properties
     this.genPropRequestBody = function(properties) {
 		var serializer = new XMLSerializer();
 		var propBody = document.implementation.createDocument("DAV:", 
