@@ -28,6 +28,7 @@
     "underscore": "~1.7.0",
     "angular": "~1.3.1",
     "angular-route": "~1.3.1",
-    "building-blocks": "gh-pages"
+    "building-blocks": "gh-pages",
+    "localforage": "~1.2.0"
   }
 }
