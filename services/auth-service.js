@@ -1,6 +1,15 @@
 angular.module('uploadApp')
 .service('Auth', function($window, $q, $rootScope) {
-	var db = null;
+
+	// TODO: switch to localforage at some point
+	//	
+	// this.fore = function(credentials) {
+	// 	return $window.localforage.setItem('credentials', JSON.stringify(config));
+	// }
+
+	// this.get = function() {
+	// 	return $window.localforage.getItem('credentials');
+	// }
 
 	this.init = function() {
 	    var deferred = $q.defer();
@@ -76,6 +85,11 @@ angular.module('uploadApp')
 			    deferred.reject();
 			}
 	    };
+
+		request.onerror = function() {
+			deferred.reject(request.error);
+	    };
+
 	    return deferred.promise;
 	};
     
@@ -83,11 +97,12 @@ angular.module('uploadApp')
 	    var deferred = $q.defer();
 	    
 	    retrieve().then(function (credentials) {
-			deferred.resolve("Basic " + $window.btoa(credentials.username+":"+credentials.password));
+			deferred.resolve("Basic " + 
+				$window.btoa(credentials.username+":"+credentials.password));
 	    }, function(error) {
 			deferred.reject(error);
 	    });
-	    
+
 	    return deferred.promise;
 	};
 
