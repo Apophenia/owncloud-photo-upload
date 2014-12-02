@@ -19,10 +19,98 @@ body {
   overflow: hidden;
 }
 
+section {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-size: 1.4rem;
+}
+
+/* All of the main views fill the screen */
+#gallery-view, #select-view, #fullscreen-view {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  font-size: 2.1rem;
+  /* display will be determined by LAYOUT_MODE */
+  display: block;
+}
+
 #gallery-view-top {
   /* ownCloud default color */
   background-color: #1D2D44;
   color: #fff;
+}
+
+#thumbnails {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  top: 5rem;
+  bottom: 0;
+  /* top and bottom are set depending on view below */
+  padding: 0;
+  margin: 0;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  /*
+  * the body background is black, but remind the UA of that here to
+  * keep the thumbnail view opaque if possible.
+  */
+  background-color: #0E1214;
+  /*
+  * set it visible/hidden by LAYOUT_MODE
+  */
+  /*visibility: hidden;*/
+  pointer-events: auto;
+}
+
+.thumbnail {
+  margin-right: 0.1rem;
+  margin-bottom: 0.1rem;
+  padding: 0;
+  /* default to left-to-right, but overridden for rtl languages below */
+  float: left;
+  /* don't let the user select the items */
+  -moz-user-select: none;
+  background-color: #444;
+  /*
+  * Here's the thumbnail size for portrait mode. We have 3 thumbnails
+  * for each row. The size for landscape mode is handled below by
+  * media query.
+  * Padding-bottom is used here in order to set div height with respect
+  * to device width.
+  */
+  width: calc((100% - 0.2rem) / 3 );
+  height: 0;
+  padding-bottom: calc((100% - 0.2rem) / 3 );
+}
+
+.thumbnail:nth-child(3n) {
+  margin-right: 0;
+}
+
+@media (orientation: landscape) {
+  /* 4 thumbnails for each row in landscape mode. */
+  .thumbnail {
+    width: calc((100% - 0.3rem) / 4);
+    padding-bottom: calc((100% - 0.3rem) / 4);
+  }
+  .thumbnail:nth-child(3n) {
+    margin-right: 0.1rem;
+  }
+  .thumbnail:nth-child(4n) {
+    margin-right: 0;
+  }
+}
+
+.thumbnailImage {
+   width: 100%; */
 }
 /*
   section {
