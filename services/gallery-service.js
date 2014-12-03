@@ -1,7 +1,7 @@
 angular.module('uploadApp')
-    .factory('Gallery', function($window, $q) {
-	return {		
-	getDeviceMedia: function() {
+.service('Gallery', function($window, $q) {
+
+	this.getDeviceMedia = function() {
 	    var deferred = $q.defer();	
 	    var photos = [];	
 	    var files = $window.navigator.getDeviceStorage('pictures');
@@ -11,14 +11,11 @@ angular.module('uploadApp')
 
 		cursor.onsuccess = function() {
 		    if (this.done) {
-				photos.forEach(function(photo) {
-				    photo.src = $window.URL.createObjectURL(photo);
-				    photo.onServer = false;
-				});
 				deferred.resolve(photos);
 		    }
 		    else {
-				photos.push(this.result);
+				photos.push({src: $window.URL.createObjectURL(this.result), 
+					filename: this.result.name});
 				this.continue();
 		    }
 		};
@@ -28,9 +25,10 @@ angular.module('uploadApp')
 		};
 
 		return deferred.promise;
-	},
-	    // this needs a refactor! perhaps with Underscore?
-	getMediaList: function(xml) {
+	};
+
+    // this needs a refactor! perhaps with Underscore?
+	this.getMediaList = function(xml) {
 		var parser = new DOMParser();
 		var doc = parser.parseFromString(xml, "text/html");
 		var result = [];
@@ -48,11 +46,11 @@ angular.module('uploadApp')
 		    return result.indexOf(elem) == pos;
 		});
 		return strippedArray;
-	    },
-	    findNewElements: function (newArray, oldArray) {
+    };
+
+	this.findNewElements = function (newArray, oldArray) {
 		return newArray.filter(function(x) {
 		    return (oldArray.indexOf(x) < 0);
 		});
-	    }
-	};
+    };
 });
