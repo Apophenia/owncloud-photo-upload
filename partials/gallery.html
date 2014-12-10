@@ -11,8 +11,8 @@
 
 <div id="thumbnails">
   <div ng-repeat="photo in photos" class="thumbnail">
-      <img class="thumbnailImage" src="{{photo.src}}" 
-        data-filename="{{photo.filename}}"></img>
+      <a ng-href="#/photos/{{photo.src}}"><img class="thumbnailImage" 
+        ng-src="{{photo.src}}" data-filename="{{photo.filename}}"></img>
      <!-- ng-class="{onserver: photo.onServer}"> -->
   </div>
 </div>

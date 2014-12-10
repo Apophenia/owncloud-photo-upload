@@ -1,5 +1,6 @@
 angular.module("uploadApp")
-  .controller("activityController", function ($scope, $window, $q, Activity, webDAV, Auth) {
+  .controller("activityController", function ($scope, $window, $q, Activity, 
+        webDAV, Auth) {
 
     var promise = Activity.getPhotoPath();
 

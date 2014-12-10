@@ -3,18 +3,21 @@ angular.module("uploadApp", ["ngRoute"])
     $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|app):/);
     $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|app|blob):/);
 
-    $routeProvider
-      .when("/", {
+    $routeProvider.
+      when("/", {
         templateUrl: "partials/gallery.html",
         controller: "galleryController"
-      })
-      .when("/settings", {
+      }).
+      when("/settings", {
         templateUrl: "partials/settings.html",
 	      controller: "settingsController"
-      })
-      .when("/activity", {
-        templateUrl: "partials/activity.html",
-        controller: "activityController"
-      })
+      }).
+      when("/photos/:photoSrc", {
+        templateUrl: "partials/single-photo.html",
+        controller: "singlePhotoController"
+      }).
+      otherwise({
+        redirectTo: '/'
+      });
   }
 );
