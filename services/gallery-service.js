@@ -1,5 +1,4 @@
-angular.module('uploadApp')
-.service('Gallery', function($window, $q) {
+angular.module('uploadApp').service('Gallery', function($window, $q) {
 
 	this.getDeviceMedia = function() {
 	    var deferred = $q.defer();	

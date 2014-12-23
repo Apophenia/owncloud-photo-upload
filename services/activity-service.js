@@ -1,5 +1,4 @@
-angular.module('uploadApp')
-.service('Activity', function($window, $q) {
+angular.module('uploadApp').service('Activity', function($window, $q) {
 
     this.getPhotoPath = function() {
 

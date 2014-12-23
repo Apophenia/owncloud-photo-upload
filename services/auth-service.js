@@ -1,5 +1,4 @@
-angular.module('uploadApp')
-.service('Auth', function($window, $q, $rootScope) {
+angular.module('uploadApp').service('Auth', function($window, $q, $rootScope) {
 
 	// TODO: switch to localforage at some point
 	//	
