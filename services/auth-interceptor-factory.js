@@ -1,9 +1,17 @@
-angular.module('uploadApp').factory('authInterceptor', function($q, Auth) {
+angular.module('uploadApp')
+.factory('authInterceptor', function($q, Auth) {
     return {
       // optional method
       'request': function(config) {
-        // do something on success
-        console.log(config);
+
+        // Auth.retrieveLocation().then(function (location) {
+        //   if (config.url.indexOf(location) == 0) {
+        //     Auth.encodeBasic().then(function (credentials) {
+        //       angular.extend(config.header, Auth.encodeBasic());
+        //     });
+        //     console.log(config);
+        //   }
+        // });
         return config;
       },
 
@@ -17,18 +25,18 @@ angular.module('uploadApp').factory('authInterceptor', function($q, Auth) {
      //  },
 
       // optional method
-      'response': function(response) {
-        // do something on success
-        return response;
-      },
+    //   'response': function(response) {
+    //     // do something on success
+    //     return response;
+    //   },
 
-      // optional method
-     'responseError': function(rejection) {
-        // do something on error
-        if (canRecover(rejection)) {
-          return responseOrNewPromise
-        }
-        return $q.reject(rejection);
-      }
+    //   // optional method
+    //  'responseError': function(rejection) {
+    //     // do something on error
+    //     if (canRecover(rejection)) {
+    //       return responseOrNewPromise
+    //     }
+    //     return $q.reject(rejection);
+    //   }
     };
 });

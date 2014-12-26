@@ -1,5 +1,5 @@
 angular.module('uploadApp', ['ngRoute'])
-  .config(function ($routeProvider, $compileProvider, $httpProvider) {
+.config(function ($routeProvider, $compileProvider, $httpProvider) {
     $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|app):/);
     $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|app|blob):/);
 

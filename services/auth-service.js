@@ -1,4 +1,5 @@
-angular.module('uploadApp').service('Auth', function($window, $q, $rootScope) {
+angular.module('uploadApp')
+.service('Auth', function($window, $q, $rootScope) {
 
 	// TODO: switch to localforage at some point
 	//	
@@ -9,6 +10,8 @@ angular.module('uploadApp').service('Auth', function($window, $q, $rootScope) {
 	// this.get = function() {
 	// 	return $window.localforage.getItem('credentials');
 	// }
+
+	this.db = null;
 
 	this.init = function() {
 	    var deferred = $q.defer();
@@ -66,42 +69,60 @@ angular.module('uploadApp').service('Auth', function($window, $q, $rootScope) {
 
 	this.retrieve = function() {
 	    var deferred = $q.defer();
-	    var tx = db.transaction("auth", "readonly");
-	    var store = tx.objectStore("auth");
+	    
+	    if(db === null){
+			deferred.reject("IndexedDB is not currently open.");
+		}
+		else {
+		    var tx = db.transaction("auth", "readonly");
+		    var store = tx.objectStore("auth");
+		    var request = store.openCursor();
 
-	    var request = store.openCursor();
-	    request.onsuccess = function() {
-			var cursor = request.result;
-			var authObjs = [];
-			if (cursor) {
-			    // This returns a cursor result; we will want the "value"
-			    authObjs.push(this.result.value);
-			    $rootScope.$apply(function () {
-					deferred.resolve(authObjs[0]);
-			    });
-			}
-			else {
-			    deferred.reject();
-			}
-	    };
+		    request.onsuccess = function() {
+				var cursor = request.result;
+				var authObjs = [];
+				if (cursor) {
+				    // This returns a cursor result; we will want the "value"
+				    authObjs.push(this.result.value);
+				    $rootScope.$apply(function () {
+						deferred.resolve(authObjs[0]);
+				    });
+				}
+				else {
+				    deferred.reject();
+				}
+		    };
 
-		request.onerror = function() {
-			deferred.reject(request.error);
-	    };
+			request.onerror = function() {
+				deferred.reject(request.error);
+		    };
+		}
 
 	    return deferred.promise;
 	};
-    
+
+	this.retrieveLocation = function() {
+		var deferred = $q.defer();
+	    
+    	this.retrieve().then(function (credentials) {
+			deferred.resolve(credentials.location);
+	    }, function(error) {
+			deferred.reject(error);
+	    });
+
+	    return deferred.promise;
+	}
+
 	this.encodeBasic = function () {
 	    var deferred = $q.defer();
 	    
-	    retrieve().then(function (credentials) {
+        this.retrieve().then(function (credentials) {
 			deferred.resolve("Basic " + 
 				$window.btoa(credentials.username+":"+credentials.password));
 	    }, function(error) {
 			deferred.reject(error);
 	    });
-
+	
 	    return deferred.promise;
 	};
 

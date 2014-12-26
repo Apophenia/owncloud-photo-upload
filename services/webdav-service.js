@@ -1,4 +1,5 @@
-angular.module('uploadApp').service('webDAV', function($q, Auth) {
+angular.module('uploadApp')
+.service('webDAV', function($q, Auth) {
     
 	// returns an XML body including the given properties
     this.genPropRequestBody = function(properties) {
@@ -49,7 +50,27 @@ angular.module('uploadApp').service('webDAV', function($q, Auth) {
 		var xhr = new XMLHttpRequest({mozSystem: true});
 		xhr.open("GET", url, true);
 		//xhr.setRequestHeader("Authorization", Auth.getBasic());
-		//xhr.setRequestHeader("Auth", Auth.encodeBasic());
+		// xhr.setRequestHeader("Authorization", "Basic " + btoa(auth.user + ":" + auth.pass));
+		xhr.onload = function (e) {
+		    if (xhr.readyState === 4) {
+			if (xhr.status === 200) {
+			    deferred.resolve(xhr.responseText);
+			} else {
+			    deferred.reject(xhr.statusText);
+			}
+		    }
+		};
+		xhr.onerror = function (e) {
+		    deferred.reject(xhr.statusText);
+		};
+		xhr.send(null);
+		return deferred.promise;
+    };
+
+    this.check = function(url, auth) {
+		var deferred = $q.defer();
+		var xhr = new XMLHttpRequest({mozSystem: true});
+		xhr.open("GET", url, true);
 		xhr.setRequestHeader("Authorization", "Basic " + btoa(auth.user + ":" + auth.pass));
 		xhr.onload = function (e) {
 		    if (xhr.readyState === 4) {
@@ -67,33 +88,43 @@ angular.module('uploadApp').service('webDAV', function($q, Auth) {
 		return deferred.promise;
     };
 
-    this.put = function(url, img) {
-		var deferred = $q.defer();
-		var xhr = new XMLHttpRequest({mozSystem: true});
-		xhr.open("PUT", url, true);
-		xhr.timeout = 120000;
-		xhr.ontimeout = function() {
-		    deferred.reject("Connection timed out");
-		};
-		Auth.encodeBasic().then(function (thing) {
-		    Auth.encodeBasic().then(function (encodedCredentials) {
-		    xhr.setRequestHeader("Authorization", encodedCredentials);
-		    xhr.onload = function (e) {
-			if (xhr.readyState === 4) {
-			    if (xhr.status === 200 || xhr.status === 204 || xhr.status === 201) {
-				deferred.resolve(xhr.responseText);
-			    } else {
-				deferred.reject(xhr.statusText);
-			    }
-			}
-		    };
-		    xhr.onerror = function () {
-			deferred.reject("Connection failed");
-		    };
-		    xhr.send(img);
-		    });
-		});
-		return deferred.promise;
-    };
+    this.checkConnection
+
+
+  //   this.put = function(url, img) {
+		// var deferred = $q.defer();
+		// var xhr = new XMLHttpRequest({mozSystem: true});
+		// xhr.open("PUT", url, true);
+		// xhr.timeout = 120000;
+		// xhr.ontimeout = function() {
+		//     deferred.reject("Connection timed out");
+		// };
+		// Auth.encodeBasic().then(function (thing) {
+		//     Auth.encodeBasic().then(function (encodedCredentials) {
+		//     xhr.setRequestHeader("Authorization", encodedCredentials);
+		//     xhr.onload = function (e) {
+		// 	if (xhr.readyState === 4) {
+		// 	    if (xhr.status === 200 || xhr.status === 204 || xhr.status === 201) {
+		// 		deferred.resolve(xhr.responseText);
+		// 	    } else {
+		// 		deferred.reject(xhr.statusText);
+		// 	    }
+		// 	}
+		//     };
+		//     xhr.onerror = function () {
+		// 	deferred.reject("Connection failed");
+		//     };
+		//     xhr.send(img);
+		//     });
+		// });
+		// return deferred.promise;
+  //   };
+  		this.put = function(url, img) {
+  			var deferred = $q.defer();
+			var xhr = new XMLHttpRequest({mozSystem: true});
+			xhr.open("PUT", url, true);
+  			xhr.send(img);
+  		} 
+
     
 });

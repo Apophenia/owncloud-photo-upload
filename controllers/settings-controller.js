@@ -11,9 +11,9 @@ angular.module("uploadApp")
            var url = $scope.credentials.location;
            var auth = {user: $scope.credentials.username, 
                        pass: $scope.credentials.password};
-        
+           console.log(url);
            console.log(auth)
-           webDAV.get(url, auth).then(function (response) {
+           webDAV.check(url, auth).then(function (response) {
                   $scope.updateStatus = "Success!";
                },
                function (error) {
