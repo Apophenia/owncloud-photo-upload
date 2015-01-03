@@ -88,9 +88,6 @@ angular.module('uploadApp')
 		return deferred.promise;
     };
 
-    this.checkConnection
-
-
   //   this.put = function(url, img) {
 		// var deferred = $q.defer();
 		// var xhr = new XMLHttpRequest({mozSystem: true});
@@ -119,12 +116,12 @@ angular.module('uploadApp')
 		// });
 		// return deferred.promise;
   //   };
-  		this.put = function(url, img) {
-  			var deferred = $q.defer();
-			var xhr = new XMLHttpRequest({mozSystem: true});
-			xhr.open("PUT", url, true);
-  			xhr.send(img);
-  		} 
-
+	this.put = function(url, img) {
+		var deferred = $q.defer();
+		var xhr = new XMLHttpRequest({mozSystem: true});
+		xhr.open("PUT", "http://localhost/core/remote.php/webdav/" + url, true);
+		xhr.send("prova");
+		return deferred.promise;
+	};
     
 });

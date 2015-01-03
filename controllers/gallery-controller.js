@@ -1,6 +1,5 @@
 // TODO: Figure out how to tie an object property to CSS with angular
 // Is ng-hide the only way? NOOOOOOO you can use ng-class or ng-style
-
 angular.module("uploadApp")
 .controller("galleryController", function ($scope, $log, $q, Gallery, webDAV, Auth) {
 	// Number of photos currently uploading

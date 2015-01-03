@@ -4,14 +4,20 @@ angular.module('uploadApp')
       // optional method
       'request': function(config) {
 
-        // Auth.retrieveLocation().then(function (location) {
-        //   if (config.url.indexOf(location) == 0) {
-        //     Auth.encodeBasic().then(function (credentials) {
-        //       angular.extend(config.header, Auth.encodeBasic());
-        //     });
-        //     console.log(config);
-        //   }
-        // });
+        Auth.retrieve().then(function(credentials) {
+            location = credentials.location;
+            console.log(location);
+
+            if (config.url.indexOf(location) == 0) {
+                header = "Basic " + 
+                    $window.btoa(credentials.username+":"+credentials.password);
+                angular.extend(config.header, header);
+                console.log(config);
+            }
+        }, function (error) {
+            console.log(error);
+        });
+
         return config;
       },
 

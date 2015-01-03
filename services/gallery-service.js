@@ -15,7 +15,7 @@ angular.module('uploadApp')
 		    }
 		    else {
 				photos.push({src: $window.URL.createObjectURL(this.result), 
-					filename: this.result.name});
+					filename: $window.encodeURIComponent($window.encodeURIComponent(this.result.name))});
 				this.continue();
 		    }
 		};
@@ -26,6 +26,24 @@ angular.module('uploadApp')
 
 		return deferred.promise;
 	};
+
+	this.getFile = function(filename) {
+		var deferred = $q.defer();	
+		var storage = $window.navigator.getDeviceStorage('pictures');
+		var request = storage.get(filename);
+
+		request.onsuccess = function () {
+			console.log("Get the file: " + filename);
+			deferred.resolve(this.result);
+		}
+
+		request.onerror = function () {
+			console.warn("Unable to get the file: " + this.error);
+			deferred.reject("Unable to get the file: " + this.error);	
+		}
+
+		return deferred.promise;
+	}
 
     // this needs a refactor! perhaps with Underscore?
 	this.getMediaList = function(xml) {

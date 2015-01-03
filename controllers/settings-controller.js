@@ -11,8 +11,7 @@ angular.module("uploadApp")
            var url = $scope.credentials.location;
            var auth = {user: $scope.credentials.username, 
                        pass: $scope.credentials.password};
-           console.log(url);
-           console.log(auth)
+
            webDAV.check(url, auth).then(function (response) {
                   $scope.updateStatus = "Success!";
                },
@@ -28,21 +27,20 @@ angular.module("uploadApp")
         $scope.updateStatus = "Updating...";
         Auth.store($scope.credentials).then(
             function(value) {
+                console.log(value);
                 $scope.updateStatus = "Updated";
             }, function () {
                 $scope.updateStatus = "An error occured when updating account information."
             }
         );
     };
-
-    Auth.init().then(function() {
-        Auth.retrieve().then(
-            function(credentials) {
-                $scope.credentials = credentials;
-            }, function(error) {
-                $log.error(error);
-            }
-        );
-    });
+    
+    Auth.retrieve().then(
+        function(credentials) {
+            $scope.credentials = credentials;
+        }, function(error) {
+            $log.error(error);
+        }
+    );
 
 });

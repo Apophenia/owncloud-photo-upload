@@ -12,7 +12,7 @@ angular.module('uploadApp', ['ngRoute'])
         templateUrl: 'partials/settings.html',
 	      controller: 'settingsController'
       }).
-      when('/photos/:photoSrc', {
+      when('/photos/:photoSrc/:photoFilename/', {
         templateUrl: 'partials/single-photo.html',
         controller: 'singlePhotoController'
       }).
@@ -22,5 +22,4 @@ angular.module('uploadApp', ['ngRoute'])
 
     $httpProvider.interceptors.push('authInterceptor');
 
-  }
-);
+});
