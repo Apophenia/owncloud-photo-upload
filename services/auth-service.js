@@ -1,15 +1,15 @@
 angular.module('uploadApp')
-.service('Auth', function($window, $q) {
+.service('Auth', function($q, $localForage) {
     
     this.store = function(credentials) {
         var deferred = $q.defer();
 
-        $window.localforage.setItem('credentials', credentials).then(function(value) {
-            deferred.resolve(value);
+        $localForage.setItem('credentials', credentials).then(function(value) {
             console.log(value);
+            deferred.resolve(value);
         }, function(error) {
-            deferred.reject(error);
             console.log(error);
+            deferred.reject(error);
         });
 
         return deferred.promise;
@@ -18,13 +18,14 @@ angular.module('uploadApp')
     this.retrieve = function() {
         var deferred = $q.defer();
 
-        $window.localforage.getItem('credentials').then(function(value) {
+        $localForage.getItem('credentials').then(function(value) {
+            console.log(value);
             deferred.resolve(value);
         }, function(error) {
+            console.log(error);
             deferred.reject(error);
         });
 
         return deferred.promise;
     };
-
 });

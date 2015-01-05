@@ -8,39 +8,38 @@ angular.module("uploadApp")
             $scope.updateStatus = "Account information missing";
         }
         else {
-           var url = $scope.credentials.location;
-           var auth = {user: $scope.credentials.username, 
+            var url = $scope.credentials.location;
+            var auth = {user: $scope.credentials.username, 
                        pass: $scope.credentials.password};
 
-           webDAV.check(url, auth).then(function (response) {
+            webDAV.check(url, auth).then(function (response) {
                   $scope.updateStatus = "Success!";
-               },
-               function (error) {
-                  console.log(error);
-                  $scope.updateStatus = "Error";
-               }
-           );
+              },
+              function (error) {
+                console.log(error);
+                $scope.updateStatus = "Error";
+            });
         }
     };
     
     $scope.save = function() {
-        $scope.updateStatus = "Updating...";
+        console.log($scope.credentials);
         Auth.store($scope.credentials).then(
             function(value) {
                 console.log(value);
-                $scope.updateStatus = "Updated";
-            }, function () {
-                $scope.updateStatus = "An error occured when updating account information."
+            }, function (error) {
+                console.log(error);
             }
         );
     };
     
     Auth.retrieve().then(
         function(credentials) {
+            console.log(credentials);
             $scope.credentials = credentials;
         }, function(error) {
+            console.log(error);
             $log.error(error);
         }
     );
-
 });

@@ -4,22 +4,22 @@ angular.module('uploadApp')
       // optional method
       'request': function(config) {
 
-        Auth.retrieve().then(function(credentials) {
-            location = credentials.location;
-            console.log(location);
+        // Auth.retrieve().then(function(credentials) {
+        //     location = credentials.location;
+        //     console.log(location);
 
-            if (config.url.indexOf(location) == 0) {
-                header = "Basic " + 
-                    $window.btoa(credentials.username+":"+credentials.password);
-                angular.extend(config.header, header);
-                console.log(config);
-            }
-        }, function (error) {
-            console.log(error);
-        });
+        //     if (config.url.indexOf(location) == 0) {
+        //         header = "Basic " + 
+        //             $window.btoa(credentials.username+":"+credentials.password);
+        //         angular.extend(config.header, header);
+        //         console.log(config);
+        //     }
+        // }, function (error) {
+        //     console.log(error);
+        // });
 
         return config;
-      },
+      }
 
      // optional method
      // 'requestError': function(rejection) {

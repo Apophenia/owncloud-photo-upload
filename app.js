@@ -1,5 +1,7 @@
-angular.module('uploadApp', ['ngRoute'])
-.config(function ($routeProvider, $compileProvider, $httpProvider) {
+angular.module('uploadApp', ['ngRoute', 'LocalForageModule'])
+.config(function ($routeProvider, $compileProvider, 
+        $httpProvider, $localForageProvider) {
+
     $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|app):/);
     $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|app|blob):/);
 
@@ -20,6 +22,11 @@ angular.module('uploadApp', ['ngRoute'])
         redirectTo: '/'
       });
 
-    $httpProvider.interceptors.push('authInterceptor');
+    // $httpProvider.interceptors.push('authInterceptor');
+
+    $localForageProvider
+      .config({
+        name : 'owncloud-photo-upload'
+      });
 
 });
