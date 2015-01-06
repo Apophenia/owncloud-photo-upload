@@ -1,5 +1,6 @@
 angular.module("uploadApp")
-.controller("settingsController", function ($window, $scope, $log, $q, webDAV, Auth) {
+.controller("settingsController", 
+  function ($window, $scope, $log, $q, $location, webDAV, Auth) {
 
     $scope.checkConnection = function() {
         $scope.updateStatus = "Checking...";
@@ -31,6 +32,8 @@ angular.module("uploadApp")
                 console.log(error);
             }
         );
+        // use routing 'resolve' to make code cleaner
+        $location.path("#");
     };
     
     Auth.retrieve().then(
