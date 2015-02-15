@@ -6,16 +6,17 @@ angular.module("uploadApp")
         filename = $window.decodeURIComponent($routeParams.photoFilename);
         console.log('Uploading ' + filename);
 
-        Gallery.getFile(filename)
-            .then(function(file) {
-                console.log('Uploading now!!' + file);
-                uploaded = webDAV.put(filename, file)
-                    .then(function() {
-                        // markReceived(photo);
-                        console.log('Success');
-                    }, function(reason) {
-                        console.log('Failed: ' + reason);
-                    });
-            });
+        Gallery.getFile(filename).then(function(file) {
+            uploaded = webDAV.put(filename, file)
+                .then(function() {
+                    console.log('Success');
+                }, function(reason) {
+                    console.log('Failed: ' + reason);
+                });
+            },
+            function(error) {
+                console.log(error);
+            }
+        );
     }
 });

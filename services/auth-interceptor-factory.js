@@ -2,24 +2,25 @@ angular.module('uploadApp')
 .factory('authInterceptor', function($q, Auth) {
     return {
       // optional method
-      'request': function(config) {
+        'request': function(config) {
 
-        // Auth.retrieve().then(function(credentials) {
-        //     location = credentials.location;
-        //     console.log(location);
-
-        //     if (config.url.indexOf(location) == 0) {
-        //         header = "Basic " + 
-        //             $window.btoa(credentials.username+":"+credentials.password);
-        //         angular.extend(config.header, header);
-        //         console.log(config);
-        //     }
-        // }, function (error) {
-        //     console.log(error);
-        // });
+            Auth.retrieve().then(function(credentials) {
+                var location = credentials.location;
+                console.log(location);
+                console.log(config.url);
+                if (config.url.indexOf(location) == 0) {
+                    console.log("here");
+                    var header = "Basic " + 
+                        $window.btoa(credentials.username+":"+credentials.password);
+                    angular.extend(config.header, header);
+                    console.log(config);
+                }
+            }, function (error) {
+                console.log(error);
+            });
 
         return config;
-      }
+        }
 
      // optional method
      // 'requestError': function(rejection) {

@@ -88,40 +88,41 @@ angular.module('uploadApp')
 		return deferred.promise;
     };
 
-  //   this.put = function(url, img) {
-		// var deferred = $q.defer();
-		// var xhr = new XMLHttpRequest({mozSystem: true});
-		// xhr.open("PUT", url, true);
-		// xhr.timeout = 120000;
-		// xhr.ontimeout = function() {
-		//     deferred.reject("Connection timed out");
-		// };
-		// Auth.encodeBasic().then(function (thing) {
-		//     Auth.encodeBasic().then(function (encodedCredentials) {
-		//     xhr.setRequestHeader("Authorization", encodedCredentials);
-		//     xhr.onload = function (e) {
-		// 	if (xhr.readyState === 4) {
-		// 	    if (xhr.status === 200 || xhr.status === 204 || xhr.status === 201) {
-		// 		deferred.resolve(xhr.responseText);
-		// 	    } else {
-		// 		deferred.reject(xhr.statusText);
-		// 	    }
-		// 	}
-		//     };
-		//     xhr.onerror = function () {
-		// 	deferred.reject("Connection failed");
-		//     };
-		//     xhr.send(img);
-		//     });
-		// });
-		// return deferred.promise;
-  //   };
-	this.put = function(url, img) {
+	this.put = function(url, file) {
 		var deferred = $q.defer();
 		var xhr = new XMLHttpRequest({mozSystem: true});
-		xhr.open("PUT", "http://localhost/core/remote.php/webdav/" + url, true);
-		xhr.send("prova");
+
+		Auth.retrieve().then(function(credentials) {
+			xhr.open("PUT", credentials.location + "photos/" + url, true);
+			xhr.setRequestHeader("Authorization", "Basic " + 
+				btoa(credentials.username + ":" + credentials.password));
+
+			xhr.timeout = 120000;
+			xhr.ontimeout = function() {
+				deferred.reject("Connection timed out");
+			};
+
+			xhr.onload = function (e) {
+				if (xhr.readyState === 4) {
+				    if (xhr.status === 200 || xhr.status === 204 || 
+				    	xhr.status === 201) {
+						deferred.resolve(xhr.responseText);
+				    } else {
+				    	console.log(xhr.statusText);
+						deferred.reject(xhr.statusText);
+				    }
+				}		
+			};
+
+			xhr.onerror = function () {
+				deferred.reject("Connection failed");
+			};
+
+			xhr.send(file);
+		}, function(error) {
+			deferred.reject(error);
+		});
+
 		return deferred.promise;
 	};
-    
 });

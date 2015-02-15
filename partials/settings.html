@@ -2,7 +2,7 @@
   <header id="modify-settings-header">
     <menu type="toolbar">
     <a ng-click="save()">
-      Done
+      <span>Done</span>
     </a>
     </menu>
     <h1>Settings</h1>
@@ -15,7 +15,7 @@
       <ol>
         <li>
           <input name="title" placeholder="Server address (http://...)" 
-            dir="auto" type="text" ng-model="credentials.location">
+            dir="auto" type="text" ng-model="credentials.address">
         </li>
         <li>
           <input name="title" placeholder="Username" dir="auto" type="text"

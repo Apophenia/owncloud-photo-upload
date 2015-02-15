@@ -1,6 +1,6 @@
 angular.module('uploadApp', ['ngRoute', 'LocalForageModule'])
-.config(function ($routeProvider, $compileProvider, 
-        $httpProvider, $localForageProvider) {
+.config(function ($routeProvider, $compileProvider, $httpProvider, 
+      $localForageProvider) {
 
     $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|app):/);
     $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|app|blob):/);

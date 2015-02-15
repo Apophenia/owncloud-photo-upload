@@ -9,7 +9,7 @@ angular.module("uploadApp")
             $scope.updateStatus = "Account information missing";
         }
         else {
-            var url = $scope.credentials.location;
+            var url = $scope.credentials.address;
             var auth = {user: $scope.credentials.username, 
                        pass: $scope.credentials.password};
 
@@ -24,21 +24,18 @@ angular.module("uploadApp")
     };
     
     $scope.save = function() {
-        console.log($scope.credentials);
         Auth.store($scope.credentials).then(
             function(value) {
-                console.log(value);
+                // use routing 'resolve' to make code cleaner
+                $location.path("#");
             }, function (error) {
                 console.log(error);
             }
         );
-        // use routing 'resolve' to make code cleaner
-        $location.path("#");
     };
     
     Auth.retrieve().then(
         function(credentials) {
-            console.log(credentials);
             $scope.credentials = credentials;
         }, function(error) {
             console.log(error);
