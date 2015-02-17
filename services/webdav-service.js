@@ -91,12 +91,13 @@ angular.module('uploadApp')
 	this.put = function(url, file) {
 		var deferred = $q.defer();
 		var xhr = new XMLHttpRequest({mozSystem: true});
-
+		console.log(file);
 		Auth.retrieve().then(function(credentials) {
-			xhr.open("PUT", credentials.location + "photos/" + url, true);
+			xhr.open("PUT", credentials.address + "photos/" + url, true);
+			console.log(credentials.address + "photos/" + url);
 			xhr.setRequestHeader("Authorization", "Basic " + 
 				btoa(credentials.username + ":" + credentials.password));
-
+			
 			xhr.timeout = 120000;
 			xhr.ontimeout = function() {
 				deferred.reject("Connection timed out");
