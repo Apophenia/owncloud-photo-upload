@@ -1,5 +1,7 @@
 angular.module("uploadApp")
-  .controller("singlePhotoController", function ($scope, $routeParams, $window, $q, webDAV, Gallery) {
+.controller("singlePhotoController", 
+  ['$scope', '$routeParams', '$window', '$q', 'webDAV', 'Gallery',
+    function ($scope, $routeParams, $window, $q, webDAV, Gallery) {
     $scope.photoSrc = $routeParams.photoSrc;
 
     $scope.upload = function() {
@@ -19,4 +21,4 @@ angular.module("uploadApp")
             }
         );
     }
-});
+}]);

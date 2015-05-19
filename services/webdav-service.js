@@ -1,5 +1,5 @@
 angular.module('uploadApp')
-.service('webDAV', function($q, Auth) {
+.service('webDAV', ['$q', 'Auth', function($q, Auth) {
     
 	// returns an XML body including the given properties
     this.genPropRequestBody = function(properties) {
@@ -126,4 +126,5 @@ angular.module('uploadApp')
 
 		return deferred.promise;
 	};
-});
+  }
+]);

@@ -1,6 +1,6 @@
 angular.module('uploadApp', ['ngRoute', 'LocalForageModule'])
-.config(function ($routeProvider, $compileProvider, $httpProvider, 
-      $localForageProvider) {
+.config(['$routeProvider', '$httpProvider', '$compileProvider', '$localForageProvider', 
+  function ($routeProvider, $httpProvider, $compileProvider, $localForageProvider) {
 
     $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|app):/);
     $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|app|blob):/);
@@ -28,5 +28,5 @@ angular.module('uploadApp', ['ngRoute', 'LocalForageModule'])
       .config({
         name : 'owncloud-photo-upload'
       });
-
-});
+  }
+]);

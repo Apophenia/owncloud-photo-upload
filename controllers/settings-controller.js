@@ -1,5 +1,6 @@
 angular.module("uploadApp")
 .controller("settingsController", 
+  ['$window', '$scope', '$log', '$q', '$location', 'webDAV', 'Auth',
   function ($window, $scope, $log, $q, $location, webDAV, Auth) {
 
     $scope.checkConnection = function() {
@@ -42,4 +43,4 @@ angular.module("uploadApp")
             $log.error(error);
         }
     );
-});
+}]);

@@ -1,5 +1,5 @@
 angular.module('uploadApp')
-.service('Auth', function($q, $localForage) {
+.service('Auth', ['$q', '$localForage', function($q, $localForage) {
     
     this.store = function(credentials) {
         var deferred = $q.defer();
@@ -28,4 +28,5 @@ angular.module('uploadApp')
 
         return deferred.promise;
     };
-});
+  }
+]);

@@ -1,7 +1,8 @@
 // TODO: Figure out how to tie an object property to CSS with angular
 // Is ng-hide the only way? NOOOOOOO you can use ng-class or ng-style
 angular.module("uploadApp")
-.controller("galleryController", function ($scope, $log, $q, Gallery, webDAV, Auth) {
+.controller("galleryController", ['$scope', '$log', '$q', 'Gallery', 'webDAV', 'Auth',
+	function ($scope, $log, $q, Gallery, webDAV, Auth) {
 	// Number of photos currently uploading
 	// Seems dangerous -- what if a bug results in a negative value?
 	$scope.pending = 0;
@@ -17,9 +18,9 @@ angular.module("uploadApp")
 	    $scope.photos = result;
 	    $scope.$log = $log;
 	}, function (reason) {
-	    $scope.error('Failed: ' + reason);
+	    console.error('Failed: ' + reason);
 	}, function (update) {
-	    $scope.info('Notification: ' + update);
+	    console.info('Notification: ' + update);
 	});
 	
 	$scope.markNewImages = function () {
@@ -54,4 +55,4 @@ angular.module("uploadApp")
 		});
 	});
 	};
-});
+}]);

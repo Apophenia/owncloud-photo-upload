@@ -3,7 +3,7 @@
   display: none !important;
 }
 
-li button.icon-call:before {
+li .icon-call:before {
   background-image: url("/shared/style/contacts/images/call.png") !important;
 }
 
@@ -16,15 +16,26 @@ li button.send-sms {
 }
 li button.icon-email:before {
   background-image: url("/shared/style/contacts/images/mail.png") !important;
+} 
+
+.has-preferred-sim .button.icon-call {
+  display: flex;
+  align-items: center;
+  padding: 0 1.2rem;
 }
 
-.has-preferred-sim .icon-call b {
-  right: 6.5rem;
+.has-preferred-sim .button.icon-call b {
+  position: unset;
+  order: 1;
+  flex: 1 1 auto;
 }
 
-.has-preferred-sim .icon-call:before {
-  width: 9.5rem !important;
+.has-preferred-sim .activity.icon-call:before {
+  margin-top: 0;
   background-size: 3rem !important;
+  position: unset;
+  order: 2;
+  flex: 0 0 auto;
 }
 
 .call-action .js-sim-indication {
@@ -34,13 +45,10 @@ li button.icon-email:before {
   font-style: normal;
   line-height: 4rem;
   height: 4rem;
-  text-align: right;
-  width: 5.5rem;
-  right: 1rem;
-  top: 0;
+  text-align: end;
   margin: 0;
-  position: absolute;
   background: url("/shared/elements/gaia_sim_picker/images/long-tap-indicator.png") no-repeat right bottom 0.2rem / 1.4rem 1rem;
+  order: 3;
 }
 
 .has-preferred-sim .call-action .js-sim-indication {
@@ -48,13 +56,12 @@ li button.icon-email:before {
 }
 
 #sim-picker {
-  text-align: left;
+  text-align: start;
 }
 
 #contact-detail h2 {
   display: flex;
   margin: 0 1.5rem 0.2rem;
-
   text-transform: uppercase;
   font-size: 1.8rem;
   color: #4997a7;
@@ -80,16 +87,16 @@ li button.icon-email:before {
 
 .item-media {
   float: left;
-  margin-right: 1rem;
+  -moz-margin-end: 1rem;
 }
 
 .item-media.pull-right {
-  margin-left: 1rem;
-  margin-right: 0;
+  -moz-margin-start: 1rem;
+  -moz-margin-end: 0;
 }
 
-.item-media.pull-right button {
-  padding-right: 3rem;
+.item-media.pull-right .activity {
+  -moz-padding-end: 3rem;
 }
 
 .item-body {
@@ -115,7 +122,7 @@ li button.icon-email:before {
   float: right;
 }
 
-li button.activity > b {
+li .activity > b {
   font-weight: normal;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -134,4 +141,30 @@ li button.activity > b {
 
 .remark-missed {
   color: #CC0000 !important;
+}
+
+/* RTL View */
+html[dir="rtl"] .call-action .js-sim-indication {
+  background-position: left bottom 0.2rem;
+}
+
+html[dir="rtl"] .item-media {
+  float: right;
+}
+
+html[dir="rtl"] .pull-left {
+  float: right;
+}
+
+html[dir="rtl"] .pull-right {
+  float: left;
+}
+
+html[dir="rtl"] li .activity > b {
+  left: 3rem;
+  right: 1.5rem;
+}
+
+html[dir="rtl"] li .icon-call {
+  text-align: right;
 }

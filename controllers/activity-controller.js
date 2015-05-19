@@ -1,6 +1,7 @@
 angular.module("uploadApp")
-  .controller("activityController", function ($scope, $window, $q, Activity, 
-        webDAV, Auth) {
+  .controller("activityController", 
+    ['$scope', '$window', '$q', 'Activity', 'webDAV', 'Auth'
+    function ($scope, $window, $q, Activity, webDAV, Auth) {
 
     var promise = Activity.getPhotoPath();
 
@@ -29,5 +30,4 @@ angular.module("uploadApp")
 
       promise.then(summarize);
     }
-
-});
+}]);

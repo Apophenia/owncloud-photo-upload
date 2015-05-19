@@ -1,5 +1,5 @@
 angular.module('uploadApp')
-.service('Gallery', function($window, $q) {
+.service('Gallery', ['$window', '$q', function($window, $q) {
 
 	this.getDeviceMedia = function() {
 	    var deferred = $q.defer();	
@@ -71,4 +71,4 @@ angular.module('uploadApp')
 		    return (oldArray.indexOf(x) < 0);
 		});
     };
-});
+}]);
