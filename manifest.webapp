@@ -3,7 +3,8 @@
   "description": "Upload photos and videos from device to an ownCloud server",
   "launch_path": "/index.html",
   "icons": {
-    "128": "/components/images/128.png"
+    "60": "/icons/60.png",
+    "128": "/icons/128.png"
   },
   "type": "privileged",
   "permissions": {
