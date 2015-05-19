@@ -14,7 +14,7 @@ angular.module('uploadApp', ['ngRoute', 'LocalForageModule'])
         templateUrl: 'partials/settings.html',
 	      controller: 'settingsController'
       }).
-      when('/photos/:photoSrc/:photoFilename/', {
+      when('/photos/:photoSrc*/:photoFilename/', {
         templateUrl: 'partials/single-photo.html',
         controller: 'singlePhotoController'
       }).
