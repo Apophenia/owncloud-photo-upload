@@ -1,14 +1,21 @@
-<a href="#"><span class="icon icon-back">back</span></a>
-<button id="fullscreen-back-button-tiny" type="reset" class="tiny-only"></button>
+<section id="single-photo" role="region">
+  <header id="single-photo-header">
+    <a href="#/">
+      <span class="icon icon-back">back</span>
+    </a>
+    <h1>Photo</h1>
+  </header>
+  <button id="fullscreen-back-button-tiny" type="reset" class="tiny-only"></button>
 
-<div id="contents">
-  <div class="frame">
-    <img class="single-photo" ng-src="{{ photoSrc }}"></img>
+  <div id="contents">
+    <div class="frame">
+      <img class="single-photo" ng-src="{{ photoSrc }}"/>
+    </div>
   </div>
-</div>
 
-<div id="status-bar">
-  <div id="upload-button" ng-click="upload()">
-    <button>Upload</button>
+  <div id="status-bar">
+    <div id="upload-button" ng-click="upload()">
+      <button>Upload</button>
+    </div>
   </div>
-</div> 
+</section>

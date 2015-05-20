@@ -1,3 +1,9 @@
+#single-photo-header {
+  /* ownCloud default color */
+  background-color: #1D2D44;
+  color: #fff;
+}
+
 #fullscreen-back-button-tiny {
   /*
     these particular sizes, positions, and colors are chosen
@@ -49,7 +55,7 @@ img .single-photo {
 }
 
 #upload-button {
-  height:4em;
+  height:3em;
   width:98%;
   position: relative;
   top: 50%;
