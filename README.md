@@ -1,7 +1,9 @@
-ownCloud Photo Upload App
+Archived: ownCloud Photo Upload App
 =========================
-The ownCloud Photo Upload app is an application for Firefox OS that allows to 
-send photos to a specified ownCloud server.
+The ownCloud Photo Upload was an application for Firefox OS that allowed users to 
+send photos to a specified ownCloud server. Firefox OS was shuttered and the app no longer has any functionality, but the code remains here for reference.
+
+--------------------------
 
 Setup
 -----
